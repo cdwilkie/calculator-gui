@@ -13,14 +13,38 @@ public class Calculator extends JPanel {
     public Calculator() {
         numbersPanel = new NumbersPanel();
 
-        this.setLayout(new FlowLayout());
-        this.add(numbersPanel);
+        this.setLayout(new GridBagLayout());
+
+        GridBagConstraints layoutConstraints = new GridBagConstraints();
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 0;
+        layoutConstraints.fill = GridBagConstraints.BOTH;
+        layoutConstraints.anchor = GridBagConstraints.BASELINE;
+        layoutConstraints.weightx = 1.0;
+        layoutConstraints.weighty = 1.0;
+        layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
+
+        this.add(numbersPanel, layoutConstraints);
     }
 
     public static void main(String[] args) {
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                runDemo();
+            }
+        });
+        
+    }
+
+    public static void runDemo() {
         JFrame mainFrame = new JFrame("Calculator");
         mainFrame.add(new Calculator());
-
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
@@ -39,7 +63,8 @@ class NumbersPanel extends JPanel {
         this.num3 = new JButton("3");
         this.num4 = new JButton("4");
         this.num5 = new JButton("5");
-        this.num6 = new JButton("7");
+        this.num6 = new JButton("6");
+        this.num7 = new JButton("7");
         this.num8 = new JButton("8");
         this.num9 = new JButton("9");
         this.decimalButton = new JButton(".");
@@ -76,6 +101,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num7, layoutConstraints);
     }
@@ -88,6 +117,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num8, layoutConstraints);
     }
@@ -100,6 +133,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num9, layoutConstraints);
     }
@@ -112,7 +149,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num4, layoutConstraints);
     }
@@ -125,7 +165,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num5, layoutConstraints);
     }
@@ -138,7 +181,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num6, layoutConstraints);
     }
@@ -151,7 +197,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num1, layoutConstraints);
     }
@@ -163,7 +212,10 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num2, layoutConstraints);
     }
@@ -176,35 +228,44 @@ class NumbersPanel extends JPanel {
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
         this.add(num3, layoutConstraints);
     }
 
     private void addButtonZero(GridBagConstraints layoutConstraints) {
-        layoutConstraints.gridx = 3;
-        layoutConstraints.gridy = 0;
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 3;
         layoutConstraints.fill = GridBagConstraints.BOTH;
         layoutConstraints.anchor = GridBagConstraints.BASELINE;
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 2;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
-        this.add(num7, layoutConstraints);
+        this.add(num0, layoutConstraints);
     }
 
     private void addDecimalButton(GridBagConstraints layoutConstraints) {
-        layoutConstraints.gridx = 3;
-        layoutConstraints.gridy = 2;
+        layoutConstraints.gridx = 2;
+        layoutConstraints.gridy = 3;
         layoutConstraints.fill = GridBagConstraints.BOTH;
         layoutConstraints.anchor = GridBagConstraints.BASELINE;
         layoutConstraints.weightx = 1.0;
         layoutConstraints.weighty = 1.0;
         layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
         layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
 
-        this.add(num7, layoutConstraints);
+        this.add(decimalButton, layoutConstraints);
     }
 }
 /* 
