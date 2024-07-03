@@ -7,18 +7,19 @@ public class Calculator extends JPanel {
     // components of main calcualtor gui
     private NumbersPanel numbersPanel;
     private OperationsPanel operationsPanel;
-    //private DisplayPanel displayPanel;
+    private DisplayPanel displayPanel;
     //private FunctionsPanel functionsPanel;
 
     public Calculator() {
         numbersPanel = new NumbersPanel();
         operationsPanel = new OperationsPanel();
+        displayPanel = new DisplayPanel();
 
         this.setLayout(new GridBagLayout());
 
         GridBagConstraints layoutConstraints = new GridBagConstraints();
         layoutConstraints.gridx = 1;
-        layoutConstraints.gridy = 0;
+        layoutConstraints.gridy = 1;
         layoutConstraints.fill = GridBagConstraints.BOTH;
         layoutConstraints.anchor = GridBagConstraints.BASELINE;
         layoutConstraints.weightx = 1.0;
@@ -32,7 +33,7 @@ public class Calculator extends JPanel {
         this.add(numbersPanel, layoutConstraints);
 
         layoutConstraints.gridx = 0;
-        layoutConstraints.gridy = 0;
+        layoutConstraints.gridy = 1;
         layoutConstraints.fill = GridBagConstraints.BOTH;
         layoutConstraints.anchor = GridBagConstraints.BASELINE;
         layoutConstraints.weightx = 1.0;
@@ -44,6 +45,20 @@ public class Calculator extends JPanel {
         layoutConstraints.ipady = 0;
 
         this.add(operationsPanel, layoutConstraints);
+
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 0;
+        layoutConstraints.fill = GridBagConstraints.BOTH;
+        layoutConstraints.anchor = GridBagConstraints.BASELINE;
+        layoutConstraints.weightx = 1.0;
+        layoutConstraints.weighty = 1.0;
+        layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 2;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
+
+        this.add(displayPanel, layoutConstraints);
     }
 
     public static void main(String[] args) {
@@ -63,6 +78,7 @@ public class Calculator extends JPanel {
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
+        mainFrame.setMinimumSize(new Dimension(400, 500));
     }
 
 }
@@ -450,7 +466,41 @@ class OperationsPanel extends JPanel {
         }//end addPlusMinusButton()
 }//end OperationsPanel
 
+/**
+ * Creates a JPanel that holds a JTextPanel(Area?) that will
+ * display the results of all calculations
+ */
 class DisplayPanel extends JPanel {
+    private JTextArea displayBox;
+
+    DisplayPanel() {
+        displayBox = new JTextArea();
+        displayBox.setBackground(new Color(42,78,69));
+        displayBox.setForeground(Color.WHITE);
+        //jTextArea1.setFont(new Font("Arial Black", Font.BOLD, 8));
+        displayBox.setFont(new Font("Arial", Font.BOLD, 24));
+
+        GridBagConstraints layoutConstraints = new GridBagConstraints();
+        this.setLayout(new GridBagLayout());
+
+        addDisplayBox(layoutConstraints);
+    }
+
+    private void addDisplayBox(GridBagConstraints layoutConstraints) {
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 0;
+        layoutConstraints.fill = GridBagConstraints.BOTH;
+        layoutConstraints.anchor = GridBagConstraints.BASELINE;
+        layoutConstraints.weightx = 1.0;
+        layoutConstraints.weighty = 1.0;
+        layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
+
+        this.add(displayBox, layoutConstraints);
+    }
 
 }
 
