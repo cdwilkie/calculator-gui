@@ -78,7 +78,8 @@ public class Calculator extends JPanel {
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
-        mainFrame.setMinimumSize(new Dimension(400, 500));
+        mainFrame.setSize(new Dimension(425, 500));
+        mainFrame.setMinimumSize(new Dimension(425, 500));
     }
 
 }
