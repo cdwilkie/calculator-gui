@@ -473,18 +473,34 @@ class OperationsPanel extends JPanel {
  */
 class DisplayPanel extends JPanel {
     private JTextArea displayBox;
+    private JScrollPane scrollPane;
+    private JTextField entryBox;
 
     DisplayPanel() {
+        entryBox = new JTextField();
+        entryBox.setBackground(new Color(42, 78, 69));
+        entryBox.setForeground(Color.WHITE);
+        entryBox.setFont(new Font("Arial", Font.BOLD, 18));
+
         displayBox = new JTextArea();
         displayBox.setBackground(new Color(42,78,69));
         displayBox.setForeground(Color.WHITE);
-        //jTextArea1.setFont(new Font("Arial Black", Font.BOLD, 8));
+        
         displayBox.setFont(new Font("Arial", Font.BOLD, 24));
+        //displayBox.setEditable(false);
+        scrollPane = new JScrollPane(displayBox);
 
+        this.setLayout(new GridLayout(2,1));
+        
+        this.add(scrollPane);
+        this.add(entryBox);
+        /* 
         GridBagConstraints layoutConstraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
 
         addDisplayBox(layoutConstraints);
+        addEntryBox(layoutConstraints);
+        */
     }
 
     private void addDisplayBox(GridBagConstraints layoutConstraints) {
@@ -500,7 +516,23 @@ class DisplayPanel extends JPanel {
         layoutConstraints.ipadx = 0;
         layoutConstraints.ipady = 0;
 
-        this.add(displayBox, layoutConstraints);
+        this.add(scrollPane, layoutConstraints);
+    }
+
+    private void addEntryBox(GridBagConstraints layoutConstraints) {
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 1;
+        layoutConstraints.fill = GridBagConstraints.BOTH;
+        layoutConstraints.anchor = GridBagConstraints.BASELINE;
+        layoutConstraints.weightx = 1.0;
+        layoutConstraints.weighty = 1.0;
+        layoutConstraints.insets = new Insets(10, 10, 10, 10);
+        layoutConstraints.gridheight = 1;
+        layoutConstraints.gridwidth = 1;
+        layoutConstraints.ipadx = 0;
+        layoutConstraints.ipady = 0;
+
+        this.add(entryBox, layoutConstraints);
     }
 
 }
