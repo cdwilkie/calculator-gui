@@ -84,12 +84,15 @@ public class CalcView {
         panelUnit = dispPanel.getDisplayPanel();
         mainPanel.add(panelUnit);
 
-        JPanel buttonGroup = new JPanel(new GridLayout(1,2));
+
+        
+        JPanel buttonGroup = new JPanel(new FlowLayout());
         panelUnit = numPanel.getNumPanel();
         buttonGroup.add(panelUnit);
         panelUnit = funcPanel.getFuncPanel();
         buttonGroup.add(panelUnit);
         mainPanel.add(buttonGroup);
+        
     }
     
 }

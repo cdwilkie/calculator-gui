@@ -126,15 +126,22 @@ public class NumberPanel {
     }
 
     private void createNumButtons() {
-        butArr = new JButton[10];
-        for (int i = 9; i <= 0; --i) {
-            JButton newButton = new JButton(Integer.toString(i));
-            newButton.setName("but"+Integer.toString(i));
+        butArr = new JButton[11];
+        JButton newButton;
+        for (int i = 9; i >= 0; --i) {
+            newButton = new JButton(Integer.toString(i));
+            newButton.setName(Integer.toString(i));
+            newButton.setActionCommand(Integer.toString(i));
+            butArr[i] = newButton;
         }
+        newButton = new JButton(".");
+        newButton.setName(".");
+        newButton.setActionCommand(".");
+        butArr[10] = newButton;
     }
 
     private void addNumButtons() {
-        for (int i = 9; i <= 0; --i) {
+        for (int i = 9; i >= 0; --i) {
             switch(i) {
                 case 0:
                     setBut0(butArr[i]);
@@ -178,5 +185,8 @@ public class NumberPanel {
                     break;
             }
         }
+        setButDot(butArr[10]);
+        numPanel.add(butArr[10]);
+        
     }
 }

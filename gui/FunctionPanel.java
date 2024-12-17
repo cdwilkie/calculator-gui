@@ -100,6 +100,7 @@ public class FunctionPanel {
     private void initPanel() {
         funcPanel = new JPanel();
         funcPanel.setLayout(new BoxLayout(funcPanel, BoxLayout.Y_AXIS));
+        
     }
 
     
@@ -111,48 +112,56 @@ public class FunctionPanel {
                 case "+":
                     newButton = new JButton("+");
                     newButton.setName("+");
+                    newButton.setActionCommand("+");
                     setButPlus(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "-":
                     newButton = new JButton("-");
                     newButton.setName("-");
+                    newButton.setActionCommand("-");
                     setButMinus(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "*":
                     newButton = new JButton("*");
                     newButton.setName("*");
+                    newButton.setActionCommand("*");
                     setButTimes(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "/":
                     newButton = new JButton("/");
                     newButton.setName("/");
+                    newButton.setActionCommand("/");
                     setButDiv(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "=":
                     newButton = new JButton("=");
                     newButton.setName("=");
+                    newButton.setActionCommand("=");
                     setButEq(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "+/-":
                     newButton = new JButton("+/-");
                     newButton.setName("+/-");
+                    newButton.setActionCommand("+/-");
                     setButPlusMin(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "Clr":
                     newButton = new JButton("Clr");
                     newButton.setName("Clr");
+                    newButton.setActionCommand("Clr");
                     setButClr(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "\u232B":
                     newButton = new JButton("\u232B");
-                    newButton.setName("\u232B");
+                    newButton.setName("del");
+                    newButton.setActionCommand("del");
                     setButDel(newButton);
                     funcPanel.add(newButton);
                     break;
