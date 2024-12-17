@@ -1,4 +1,6 @@
-public class CalcView {
+package gui;
+
+public class NumberPanel {
     //-------------------- Vars
 
     //-------------------- Constructor
@@ -8,5 +10,4 @@ public class CalcView {
     //-------------------- Functionality
 
     //-------------------- Logic & Helpers
-    
 }
