@@ -12,6 +12,7 @@ public class CalcController {
         this.calcView = calcView;
         this.calcModel = calcModel;
         setNumberListeners();
+        setFuncListeners();
     }
     //-------------------- Getters & Setters
     public CalcView getCalcView() {
@@ -134,6 +135,7 @@ public class CalcController {
             String currentHistory = calcView.getDisplayPanel().getOutputArea().getText();
             currentHistory = (currentHistory + Double.toString(theResults) + "\n");
             calcView.getDisplayPanel().getOutputArea().setText(currentHistory);
+            calcView.getDisplayPanel().getInputField().setText("");
         });
 
         // TODO FIX ME
@@ -152,6 +154,7 @@ public class CalcController {
         calcView.getFunctionPanel().getButClr().addActionListener(e->{
             
             calcView.getDisplayPanel().getOutputArea().setText("");
+            calcView.getDisplayPanel().getInputField().setText("");
         });
     }
 
