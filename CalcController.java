@@ -104,6 +104,18 @@ public class CalcController {
     }
 
     private void setFuncListeners() {
+
+        calcView.getFunctionPanel().getButLP().addActionListener(e->{
+            String currentInput = calcView.getDisplayPanel().getInputField().getText();
+            currentInput += " ( ";
+            calcView.getDisplayPanel().getInputField().setText(currentInput);
+        });
+
+        calcView.getFunctionPanel().getButRP().addActionListener(e->{
+            String currentInput = calcView.getDisplayPanel().getInputField().getText();
+            currentInput += " ) ";
+            calcView.getDisplayPanel().getInputField().setText(currentInput);
+        });
         
         calcView.getFunctionPanel().getButPlus().addActionListener(e->{
             String currentInput = calcView.getDisplayPanel().getInputField().getText();
