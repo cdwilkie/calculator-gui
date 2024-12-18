@@ -7,7 +7,7 @@ public class FunctionPanel {
     //-------------------- Vars
     private JPanel funcPanel;
     private JButton butPlus, butMinus, butTimes,
-                    butDiv, butEq, butPlusMin,
+                    butDiv, butEq,
                     butDel, butClr, butLP, butRP;
     
 
@@ -69,14 +69,6 @@ public class FunctionPanel {
         this.butEq = newButton;
     }
 
-    public JButton getButPlusMin() {
-        return this.butPlusMin;
-    }
-
-    public void setButPlusMin(JButton newButton) {
-        this.butPlusMin = newButton;
-    }
-
     public JButton getButDel() {
         return this.butDel;
     }
@@ -106,7 +98,7 @@ public class FunctionPanel {
     }
 
     public void setButRP(JButton butRP) {
-        this.butLP = butRP;
+        this.butRP = butRP;
     
     }
 
@@ -123,7 +115,7 @@ public class FunctionPanel {
     
     private void createAndAddButtons() {
         JButton newButton = new JButton();
-        String[] operButs = {"+", "-", "*", "/", "=", "+/-", "Clr", "\u232B", "(", ")"};
+        String[] operButs = {"+", "-", "*", "/", "=", "Clr", "\u232B", "(", ")"};
         for (String symbol : operButs) {
             switch (symbol) {
                 case "+":
@@ -159,13 +151,6 @@ public class FunctionPanel {
                     newButton.setName("=");
                     newButton.setActionCommand("=");
                     setButEq(newButton);
-                    funcPanel.add(newButton);
-                    break;
-                case "+/-":
-                    newButton = new JButton("+/-");
-                    newButton.setName("+/-");
-                    newButton.setActionCommand("+/-");
-                    setButPlusMin(newButton);
                     funcPanel.add(newButton);
                     break;
                 case "Clr":

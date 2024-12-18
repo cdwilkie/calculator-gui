@@ -8,7 +8,7 @@ public class NumberPanel {
     private JPanel numPanel;
     private JButton but0, but1, but2, but3,
                     but4, but5, but6, but7, 
-                    but8, but9, butDot;
+                    but8, but9, butDot, butNeg;
     private JButton[] butArr;
 
 
@@ -115,6 +115,14 @@ public class NumberPanel {
     public void setButDot(JButton newButton) {
         this.butDot = newButton;
     }
+
+    public JButton getButNeg() {
+        return this.butNeg;
+    }
+
+    public void setButNeg(JButton butNeg) {
+        this.butNeg = butNeg;
+    }
     //-------------------- Functionality
     // Default Constructor populates a number panel
     // getNumPanel() to return reference to number panel
@@ -126,7 +134,7 @@ public class NumberPanel {
     }
 
     private void createNumButtons() {
-        butArr = new JButton[11];
+        butArr = new JButton[12];
         JButton newButton;
         for (int i = 9; i >= 0; --i) {
             newButton = new JButton(Integer.toString(i));
@@ -138,6 +146,11 @@ public class NumberPanel {
         newButton.setName(".");
         newButton.setActionCommand(".");
         butArr[10] = newButton;
+
+        newButton = new JButton("(-)");
+        newButton.setName("(-)");
+        newButton.setActionCommand("(-)");
+        butArr[11] = newButton;
     }
 
     private void addNumButtons() {
@@ -187,6 +200,9 @@ public class NumberPanel {
         }
         setButDot(butArr[10]);
         numPanel.add(butArr[10]);
+
+        setButNeg(butArr[11]);
+        numPanel.add(butArr[11]);
         
     }
 }

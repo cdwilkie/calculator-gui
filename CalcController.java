@@ -101,6 +101,13 @@ public class CalcController {
             entryText = entryText + event.getActionCommand();
             calcView.getDisplayPanel().getInputField().setText(entryText);
         });
+
+        // TODO FIX ME
+        calcView.getNumberPanel().getButNeg().addActionListener(e->{
+            String currentInput = calcView.getDisplayPanel().getInputField().getText();
+            currentInput = currentInput + "-";
+            calcView.getDisplayPanel().getInputField().setText(currentInput);
+        });
     }
 
     private void setFuncListeners() {
@@ -145,16 +152,10 @@ public class CalcController {
             String currentInput = calcView.getDisplayPanel().getInputField().getText();
             double theResults = calcModel.calculateResults(currentInput);
             String currentHistory = calcView.getDisplayPanel().getOutputArea().getText();
-            currentHistory = (currentHistory + Double.toString(theResults) + "\n");
+            currentHistory = (currentHistory + currentInput + " = " +
+                                Double.toString(theResults) + "\n");
             calcView.getDisplayPanel().getOutputArea().setText(currentHistory);
             calcView.getDisplayPanel().getInputField().setText("");
-        });
-
-        // TODO FIX ME
-        calcView.getFunctionPanel().getButPlusMin().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + " +/- ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
         });
 
         calcView.getFunctionPanel().getButDel().addActionListener(e->{

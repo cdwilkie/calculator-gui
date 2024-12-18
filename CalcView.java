@@ -63,7 +63,7 @@ public class CalcView {
         mainFrame.setLayout(new FlowLayout());
         mainFrame.add(mainPanel);
         mainFrame.pack();
-        mainFrame.setSize(325,350);
+        mainFrame.setSize(455,475);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

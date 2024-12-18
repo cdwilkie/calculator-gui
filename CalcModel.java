@@ -20,6 +20,7 @@ import java.util.Scanner;
 public class CalcModel {
     private String calcInput;
     private double calcResults; // might should be string for future functionality
+    private String calcResultss;
     private ArithmeticParser mathParser;
     
 
