@@ -20,7 +20,6 @@ import java.util.Scanner;
 public class CalcModel {
     private String calcInput;
     private double calcResults; // might should be string for future functionality
-    private String calcResultss;
     private ArithmeticParser mathParser;
     
 
@@ -200,7 +199,7 @@ class ArithmeticParser {
 
     private double term() {
         double termResults = factor();
-        getNextToken();
+        
         while (this.currentToken.equals("*")
                 || this.currentToken.equals("/")) {
 
@@ -209,7 +208,7 @@ class ArithmeticParser {
 
             if (currentOperation.equals("*")) {
                 termResults *= termOperand;
-            }//end if *
+            }//end if
             else if (currentOperation.equals("/")) {
                 try {
                     if (termOperand == 0) {
@@ -220,8 +219,8 @@ class ArithmeticParser {
                 catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-            }//end else if /
-        }//end while *|/
+            }//end else if
+        }//end while 
 
         return termResults;
     }//end term()
@@ -238,6 +237,7 @@ class ArithmeticParser {
         }//end if "("
         else if (isNumber(this.currentToken)) {
             factorResults = Double.valueOf(this.currentToken);
+            getNextToken();
         }//end else if number
         else {
             System.out.println("ERROR - Unknown Token: " + this.currentToken);

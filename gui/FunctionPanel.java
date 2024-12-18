@@ -115,7 +115,7 @@ public class FunctionPanel {
     
     private void createAndAddButtons() {
         JButton newButton = new JButton();
-        String[] operButs = {"+", "-", "*", "/", "=", "Clr", "\u232B", "(", ")"};
+        String[] operButs = {"+", "-", "*", "/", "(", ")", "Clr", "\u232B", "="};
         for (String symbol : operButs) {
             switch (symbol) {
                 case "+":
