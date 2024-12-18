@@ -8,7 +8,7 @@ public class FunctionPanel {
     private JPanel funcPanel;
     private JButton butPlus, butMinus, butTimes,
                     butDiv, butEq, butPlusMin,
-                    butDel, butClr;
+                    butDel, butClr, butLP, butRP;
     
 
 
@@ -93,20 +93,37 @@ public class FunctionPanel {
         this.butClr = newButton;
     }
 
+    public JButton getButLP() {
+        return this.butLP;
+    }
+
+    public void setButLP(JButton butLP) {
+        this.butLP = butLP;
+    }
+
+    public JButton getButRP() {
+        return this.butRP;
+    }
+
+    public void setButRP(JButton butRP) {
+        this.butLP = butRP;
+    
+    }
+
     //-------------------- Functionality
 
 
     //-------------------- Logic & Helpers
     private void initPanel() {
         funcPanel = new JPanel();
-        funcPanel.setLayout(new BoxLayout(funcPanel, BoxLayout.Y_AXIS));
+        funcPanel.setLayout(new GridLayout(5, 2));
         
     }
 
     
     private void createAndAddButtons() {
         JButton newButton = new JButton();
-        String[] operButs = {"+", "-", "*", "/", "=", "+/-", "Clr", "\u232B"};
+        String[] operButs = {"+", "-", "*", "/", "=", "+/-", "Clr", "\u232B", "(", ")"};
         for (String symbol : operButs) {
             switch (symbol) {
                 case "+":
@@ -163,6 +180,20 @@ public class FunctionPanel {
                     newButton.setName("del");
                     newButton.setActionCommand("del");
                     setButDel(newButton);
+                    funcPanel.add(newButton);
+                    break;
+                case "(":
+                    newButton = new JButton("(");
+                    newButton.setName("(");
+                    newButton.setActionCommand("(");
+                    setButLP(newButton);
+                    funcPanel.add(newButton);
+                    break;
+                case ")":
+                    newButton = new JButton(")");
+                    newButton.setName(")");
+                    newButton.setActionCommand(")");
+                    setButRP(newButton);
                     funcPanel.add(newButton);
                     break;
             }
