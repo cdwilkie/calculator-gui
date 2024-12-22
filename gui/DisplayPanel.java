@@ -1,6 +1,10 @@
 package gui;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
+
 
 public class DisplayPanel {
     //-------------------- Vars
@@ -43,11 +47,19 @@ public class DisplayPanel {
     //-------------------- Functionality
 
     //-------------------- Logic & Helpers
+    /**
+     * Initalizes and sets Layout of the <code>JPanel</code> that 
+     * will hold the display components. 
+     */
     private void initPanel() {
         dispPanel = new JPanel();
         dispPanel.setLayout(new BoxLayout(dispPanel, BoxLayout.Y_AXIS));
-    }
+    }//end initPanel()
 
+    /**
+     * Helper function initializes the <code>JTextField</code> input
+     * field and intiializes the <code>JTextArea</code> for ouput history.
+     */
     private void createAndAddComponents() {
         // Text Field holds current input
         inputField = new JTextField(20);
@@ -61,5 +73,5 @@ public class DisplayPanel {
         outputArea.setName("output");
         outputScroll = new JScrollPane(outputArea);
         dispPanel.add(outputScroll);
-    }
-}
+    }//end createAndAddComponents()
+}//end DisplayPanel class
