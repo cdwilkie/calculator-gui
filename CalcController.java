@@ -13,6 +13,7 @@ public class CalcController {
         this.calcModel = calcModel;
         setNumberListeners();
         setFuncListeners();
+        setOperationsListeners();
     }
     //-------------------- Getters & Setters
     public CalcView getCalcView() {
@@ -167,6 +168,16 @@ public class CalcController {
         calcView.getFunctionPanel().getButClr().addActionListener(e->{
             
             calcView.getDisplayPanel().getOutputArea().setText("");
+            calcView.getDisplayPanel().getInputField().setText("");
+        });
+
+
+    }
+
+    private void setOperationsListeners() {
+        calcView.getOperationsPanel().getButton("squareroot").addActionListener(e->{
+            
+            calcView.getDisplayPanel().getOutputArea().setText("\u221A");
             calcView.getDisplayPanel().getInputField().setText("");
         });
     }
