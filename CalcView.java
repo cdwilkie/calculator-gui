@@ -8,11 +8,13 @@ public class CalcView {
     private NumberPanel numPanel;
     private FunctionPanel funcPanel;
     private DisplayPanel dispPanel;
+
+    // new
+    private OperationsPanel opPanel;
     
 
 
     //-------------------- Constructor
-
     public CalcView() {
         createMainPanel();
         initPanels();
@@ -20,7 +22,6 @@ public class CalcView {
     }
 
     //-------------------- Getters & Seters
-
     public JPanel getMainPanel() {
         return this.mainPanel;
     }
@@ -52,12 +53,24 @@ public class CalcView {
     public void setDisplayPanel(DisplayPanel dispPanel) {
         this.dispPanel = dispPanel;
     }
+
+    // new stuff
+
+    public OperationsPanel getOperationsPanel() {
+        return this.opPanel;
+    }
+
+    public void setOperationsPanel(OperationsPanel opPanel) {
+        this.opPanel = opPanel;
+    }
+
+
     //-------------------- Functionality
     public void runDemo() {
         initFrame();
     }
-    //-------------------- Logic & Helpers
 
+    //-------------------- Logic & Helpers
     private void initFrame() {
         JFrame mainFrame = new JFrame("Calculator");
         mainFrame.setLayout(new FlowLayout());
@@ -73,6 +86,9 @@ public class CalcView {
         this.numPanel = new NumberPanel();
         this.dispPanel = new DisplayPanel();
 
+        // new stuff
+        this.opPanel = new OperationsPanel();
+
     }
 
     private void createMainPanel() {
@@ -80,22 +96,23 @@ public class CalcView {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     }
 
+    /**
+     * Helper function adds each panel component to the
+     * main JPanel
+     */
     private void populatePanel() {
-        JPanel panelUnit = null;
-        panelUnit = dispPanel.getDisplayPanel();
-        mainPanel.add(panelUnit);
-
-
+        // Add the Display Panel
+        mainPanel.add(dispPanel.getDisplayPanel());
         
+        // Combine Buttons into one panel and Add
         JPanel buttonGroup = new JPanel(new FlowLayout());
-        panelUnit = numPanel.getNumPanel();
-        buttonGroup.add(panelUnit);
-        panelUnit = funcPanel.getFuncPanel();
-        buttonGroup.add(panelUnit);
+        buttonGroup.add(numPanel.getNumPanel());
+        buttonGroup.add(funcPanel.getFuncPanel());
         mainPanel.add(buttonGroup);
         
+        // new stuff
+        mainPanel.add(opPanel.getOpPanel());
 
-        
     }
     
 }
