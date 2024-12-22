@@ -6,16 +6,15 @@ import java.awt.*;
 
 public class OperationsPanel {
     //-------------------- Vars
-    private final String[] buttonNames = {
-        "!"
-    };
-    private JPanel mainPanel;
+    private static final String[] buttonNames = {
+        "!", "log", "exponent", "squareroot"};
 
-
+    private JPanel opPanel;
     private HashMap<String, JButton> buttonMap;
 
     //-------------------- Constructors
     public OperationsPanel() {
+        buttonMap = new HashMap<String, JButton>();
         initPanel();
         populateMap();
         populatePanel();
@@ -23,12 +22,12 @@ public class OperationsPanel {
 
     //-------------------- Getters & Setters
 
-    public JPanel getMainPanel() {
-        return mainPanel;
+    public JPanel getOpPanel() {
+        return opPanel;
     }
 
-    public void setMainPanel(JPanel mainPanel) {
-        this.mainPanel = mainPanel;
+    public void setOpPanel(JPanel opPanel) {
+        this.opPanel = opPanel;
     }
 
     public HashMap<String, JButton> getButtonMap() {
@@ -52,8 +51,8 @@ public class OperationsPanel {
     //-------------------- Logic & Helpers
 
     private void initPanel() {
-        this.mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(2, 4));
+        this.opPanel = new JPanel();
+        opPanel.setLayout(new GridLayout(2, 4));
     }
 
     private JButton buildButton(String buttonName) {
@@ -66,9 +65,17 @@ public class OperationsPanel {
 
     private void populateMap() {
         JButton newButton = null;
-        for (String buttonName : this.buttonNames) {
+        for (String buttonName : buttonNames) {
             switch(buttonName) {
                 case "exponent":
+                    newButton = buildButton(buttonName);
+                    newButton.setText("<html>x<sup>y</sup></html>");
+                    buttonMap.put(buttonName, newButton);
+                    break;
+                case "squareroot":
+                    newButton = buildButton(buttonName);
+                    newButton.setText("\u221A");
+                    buttonMap.put(buttonName, newButton);
                     break;
                 default:
                     newButton = buildButton(buttonName);
@@ -79,7 +86,7 @@ public class OperationsPanel {
     
     private void populatePanel() {
         for (String buttonName : this.buttonMap.keySet()) {
-            mainPanel.add(buttonMap.get(buttonName));
+            opPanel.add(buttonMap.get(buttonName));
         }
     }
 }
