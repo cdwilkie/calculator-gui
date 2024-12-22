@@ -114,14 +114,14 @@ class ArithmeticParser {
     private String currentToken;
 
     // Constructors
-    /* 
+     
     public ArithmeticParser() {
         inputString = null;
         calculationResults = 0.0;
         scnr = null;
         currentToken = null;
     }
-    */
+    
     
     public ArithmeticParser(String inputString) {
         this.inputString = inputString;
@@ -180,7 +180,9 @@ class ArithmeticParser {
     }//end getNextToken()
 
     private double expression() {
-        double expressionResults = term();
+        double expressionResults = 0.0;
+        try {
+        expressionResults = term();
         while (this.currentToken.equals("+")
                 || this.currentToken.equals("-")) {
             String currentOperation = this.currentToken;
@@ -193,11 +195,17 @@ class ArithmeticParser {
                 expressionResults -= expressionOperand;
             }//end else if -
         }//end while +|-
+        }
+        catch (Exception e) {
+            System.out.println("Error - " + e.getMessage());
+            expressionResults = Double.NaN;
+            return expressionResults;
+        }
 
         return expressionResults;
     }//end expression()
 
-    private double term() {
+    private double term() throws Exception {
         double termResults = factor();
         
         while (this.currentToken.equals("*")
@@ -210,22 +218,18 @@ class ArithmeticParser {
                 termResults *= termOperand;
             }//end if
             else if (currentOperation.equals("/")) {
-                try {
                     if (termOperand == 0) {
                         throw new Exception("Error! Cannot divide by zero");
                     }
                     termResults /= termOperand;
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+                
             }//end else if
         }//end while 
 
         return termResults;
     }//end term()
 
-    private double factor() {
+    private double factor() throws Exception {
         double factorResults = 0.0;
         getNextToken();
 
@@ -241,6 +245,7 @@ class ArithmeticParser {
         }//end else if number
         else {
             System.out.println("ERROR - Unknown Token: " + this.currentToken);
+            throw new Exception("Unknown or unexpected token encountered");
         }//end else unknown
 
         return factorResults;

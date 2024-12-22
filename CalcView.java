@@ -72,6 +72,7 @@ public class CalcView {
         this.funcPanel = new FunctionPanel();
         this.numPanel = new NumberPanel();
         this.dispPanel = new DisplayPanel();
+
     }
 
     private void createMainPanel() {
@@ -92,6 +93,8 @@ public class CalcView {
         panelUnit = funcPanel.getFuncPanel();
         buttonGroup.add(panelUnit);
         mainPanel.add(buttonGroup);
+        
+
         
     }
     

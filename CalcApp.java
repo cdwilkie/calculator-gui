@@ -4,7 +4,7 @@ public class CalcApp {
         CalcView testCalc = new CalcView();
         CalcModel testModel = new CalcModel();
         CalcController calcController = new CalcController(testCalc, testModel);
-        testCalc.runDemo();
+        calcController.getCalcView().runDemo();
     }
     
 }
