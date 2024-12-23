@@ -1,15 +1,16 @@
 package gui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 
 public class FunctionPanel {
     //-------------------- Vars
     private static final String[] buttonNames = {
+        "butClr", "butDel", "butLP", "butRP",
         "butPlus", "butMinus", "butTimes",
-        "butDiv", "butEq", "butDel", "butClr",
-        "butLP", "butRP"};
+        "butDiv", "butEq"};
     private HashMap<String, JButton> buttonMap;
     private JPanel funcPanel;
 
@@ -104,7 +105,7 @@ public class FunctionPanel {
     }
 
     private void populatePanel() {
-        for (String buttonName : this.buttonMap.keySet()) {
+        for (String buttonName : buttonNames) {
             funcPanel.add(buttonMap.get(buttonName));
         }
     }
