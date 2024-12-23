@@ -85,7 +85,7 @@ public class OperationsPanel {
     }
     
     private void populatePanel() {
-        for (String buttonName : this.buttonMap.keySet()) {
+        for (String buttonName : buttonNames) {
             opPanel.add(buttonMap.get(buttonName));
         }
     }
