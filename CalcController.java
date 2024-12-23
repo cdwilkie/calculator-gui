@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 public class CalcController {
     //-------------------- Vars
     private CalcView calcView;
@@ -12,7 +8,7 @@ public class CalcController {
         this.calcView = calcView;
         this.calcModel = calcModel;
         setNumberListeners();
-        setFuncListeners();
+        setFunctionListeners();
         setOperationsListeners();
     }
     //-------------------- Getters & Setters
@@ -111,69 +107,51 @@ public class CalcController {
         });
     }
 
-    private void setFuncListeners() {
-
-        calcView.getFunctionPanel().getButLP().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput += " ( ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButRP().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput += " ) ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-        
-        calcView.getFunctionPanel().getButPlus().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + " + ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButMinus().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + " - ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButTimes().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + " * ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButDiv().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + " / ";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButEq().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            double theResults = calcModel.calculateResults(currentInput);
-            String currentHistory = calcView.getDisplayPanel().getOutputArea().getText();
-            currentHistory = (currentHistory + currentInput + " = " +
+    private void setFunctionListeners() {
+        for (String buttonName : calcView.getFunctionPanel().getButtonMap().keySet()) {
+            calcView.getFunctionPanel().getButton(buttonName).addActionListener(e -> {
+                String currentInput = calcView.getInput();
+                switch(buttonName) {
+                    case "butLP":
+                        currentInput += " ( ";
+                        break;
+                    case "butRP":
+                        currentInput += " ) ";
+                        break;
+                    case "butPlus":
+                        currentInput += " + ";
+                        break;
+                    case "butMinus":
+                        currentInput += " - ";
+                        break;
+                    case "butTimes":
+                        currentInput += " * ";
+                        break;
+                    case "butDiv":
+                        currentInput += " / ";
+                        break;
+                    case "butEq":
+                        double theResults = calcModel.calculateResults(currentInput);
+                        String currentHistory = calcView.getOutput();
+                        currentHistory += (currentInput + " = " +
                                 Double.toString(theResults) + "\n");
-            calcView.getDisplayPanel().getOutputArea().setText(currentHistory);
-            calcView.getDisplayPanel().getInputField().setText("");
-        });
+                        calcView.setOutput(currentHistory);
+                        currentInput = "";
+                        break;
+                    case "butDel":
+                        currentInput = currentInput.substring(0, currentInput.length()-1);
+                        break;
+                    case "butClr":
+                        currentInput = "";
+                        calcView.setOutput("");
+                        break;
+                }//end switch(buttonName)
+                calcView.setInput(currentInput);
+            });//end addActionListener()
+        }//end for each button name
+    }//end setFuncListeners2()
 
-        calcView.getFunctionPanel().getButDel().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput.substring(0, currentInput.length()-1);
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
-
-        calcView.getFunctionPanel().getButClr().addActionListener(e->{
-            
-            calcView.getDisplayPanel().getOutputArea().setText("");
-            calcView.getDisplayPanel().getInputField().setText("");
-        });
-
-
-    }
-
+   
     private void setOperationsListeners() {
         calcView.getOperationsPanel().getButton("squareroot").addActionListener(e->{
             
