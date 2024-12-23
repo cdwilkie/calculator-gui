@@ -32,79 +32,50 @@ public class CalcController {
 
     //-------------------- Logic & Helpers
     private void setNumberListeners() {
-        
-        calcView.getNumberPanel().getBut0().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut1().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut2().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut3().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut4().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut5().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut6().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut7().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut8().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getBut9().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        calcView.getNumberPanel().getButDot().addActionListener(event->{
-            String entryText = calcView.getDisplayPanel().getInputField().getText();
-            entryText = entryText + event.getActionCommand();
-            calcView.getDisplayPanel().getInputField().setText(entryText);
-        });
-
-        // TODO FIX ME
-        calcView.getNumberPanel().getButNeg().addActionListener(e->{
-            String currentInput = calcView.getDisplayPanel().getInputField().getText();
-            currentInput = currentInput + "-";
-            calcView.getDisplayPanel().getInputField().setText(currentInput);
-        });
+        for (String buttonName : calcView.getNumberPanel().getButtonMap().keySet()) {
+            calcView.getNumberPanel().getButton(buttonName).addActionListener(e -> {
+                String currentInput = calcView.getInput();
+                switch(buttonName) {
+                    case "but0":
+                    currentInput += "0";
+                    break;
+                case "but1":
+                    currentInput += "1";
+                    break;
+                case "but2":
+                    currentInput += "2";
+                    break;
+                case "but3":
+                    currentInput += "3";
+                    break;
+                case "but4":
+                    currentInput += "4";
+                    break;
+                case "but5":
+                    currentInput += "5";
+                    break;
+                case "but6":
+                    currentInput += "6";
+                    break;
+                case "but7":
+                    currentInput += "7";
+                    break;
+                case "but8":
+                    currentInput += "8";
+                    break;
+                case "but9":
+                    currentInput += "9";
+                    break;
+                case "butDot":
+                    currentInput += ".";
+                    break;
+                case "butNeg":
+                    currentInput += "-";
+                    break;
+                }
+                calcView.setInput(currentInput);
+            });
+        }
     }
 
     private void setFunctionListeners() {
@@ -139,7 +110,14 @@ public class CalcController {
                         currentInput = "";
                         break;
                     case "butDel":
-                        currentInput = currentInput.substring(0, currentInput.length()-1);
+                    if (currentInput.length() > 0) {
+                        if (currentInput.charAt(currentInput.length()-1) == ' ') {
+                            currentInput = currentInput.substring(0, currentInput.length()-2);
+                        }
+                        else {
+                            currentInput = currentInput.substring(0, currentInput.length()-1);
+                        }
+                    }
                         break;
                     case "butClr":
                         currentInput = "";
