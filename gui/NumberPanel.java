@@ -2,21 +2,26 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class NumberPanel {
     //-------------------- Vars
+    private static final String[] buttonNames = {
+        "but7", "but8", "but9",
+        "but4", "but5", "but6",
+        "but1", "but2", "but3",
+        "butDot", "but0", "butNeg"
+    };
+    private HashMap<String, JButton> buttonMap;
     private JPanel numPanel;
-    private JButton but0, but1, but2, but3,
-                    but4, but5, but6, but7, 
-                    but8, but9, butDot, butNeg;
-    private JButton[] butArr;
-
 
     //-------------------- Constructor
     public NumberPanel() {
+        this.buttonMap = new HashMap<String, JButton>();
         initNumPanel();
-        createNumButtons();
-        addNumButtons();
+        populateMap();
+        populatePanel();
+
     }
 
     //-------------------- Getters & Seters
@@ -28,101 +33,23 @@ public class NumberPanel {
         this.numPanel = numPanel;
     }
 
-    public JButton getBut0(){
-        return this.but0;
+    public HashMap<String, JButton> getButtonMap() {
+        return this.buttonMap;
     }
 
-    public void setBut0(JButton newButton) {
-        this.but0 = newButton;
+    public void setButtonMap(HashMap<String, JButton> buttonMap) {
+        this.buttonMap = buttonMap;
     }
 
-    public JButton getBut1(){
-        return this.but1;
+    public JButton getButton(String buttonName) {
+        return this.buttonMap.get(buttonName);
     }
 
-    public void setBut1(JButton newButton) {
-        this.but1 = newButton;
+    public void setButton(String buttonName) {
+        JButton newButton = buildButton(buttonName);
+        buttonMap.put(buttonName, newButton);
     }
 
-    public JButton getBut2(){
-        return this.but2;
-    }
-
-    public void setBut2(JButton newButton) {
-        this.but2 = newButton;
-    }
-
-    public JButton getBut3(){
-        return this.but3;
-    }
-
-    public void setBut3(JButton newButton) {
-        this.but3 = newButton;
-    }
-
-    public JButton getBut4(){
-        return this.but4;
-    }
-
-    public void setBut4(JButton newButton) {
-        this.but4 = newButton;
-    }
-
-    public JButton getBut5(){
-        return this.but5;
-    }
-
-    public void setBut5(JButton newButton) {
-        this.but5 = newButton;
-    }
-
-    public JButton getBut6(){
-        return this.but6;
-    }
-
-    public void setBut6(JButton newButton) {
-        this.but6 = newButton;
-    }
-
-    public JButton getBut7(){
-        return this.but7;
-    }
-
-    public void setBut7(JButton newButton) {
-        this.but7 = newButton;
-    }
-
-    public JButton getBut8(){
-        return this.but8;
-    }
-
-    public void setBut8(JButton newButton) {
-        this.but8 = newButton;
-    }
-
-    public JButton getBut9(){
-        return this.but9;
-    }
-
-    public void setBut9(JButton newButton) {
-        this.but9 = newButton;
-    }
-
-    public JButton getButDot(){
-        return this.butDot;
-    }
-
-    public void setButDot(JButton newButton) {
-        this.butDot = newButton;
-    }
-
-    public JButton getButNeg() {
-        return this.butNeg;
-    }
-
-    public void setButNeg(JButton butNeg) {
-        this.butNeg = butNeg;
-    }
     //-------------------- Functionality
     // Default Constructor populates a number panel
     // getNumPanel() to return reference to number panel
@@ -133,76 +60,64 @@ public class NumberPanel {
         numPanel.setLayout(new GridLayout(4,3));
     }
 
-    private void createNumButtons() {
-        butArr = new JButton[12];
-        JButton newButton;
-        for (int i = 9; i >= 0; --i) {
-            newButton = new JButton(Integer.toString(i));
-            newButton.setName(Integer.toString(i));
-            newButton.setActionCommand(Integer.toString(i));
-            butArr[i] = newButton;
-        }
-        newButton = new JButton(".");
-        newButton.setName(".");
-        newButton.setActionCommand(".");
-        butArr[10] = newButton;
+    private JButton buildButton(String buttonName) {
+        JButton newButton = new JButton(buttonName);
+        newButton.setActionCommand(buttonName);
+        newButton.setName(buttonName);
 
-        newButton = new JButton("(-)");
-        newButton.setName("(-)");
-        newButton.setActionCommand("(-)");
-        butArr[11] = newButton;
+        return newButton;
     }
 
-    private void addNumButtons() {
-        for (int i = 9; i >= 0; --i) {
-            switch(i) {
-                case 0:
-                    setBut0(butArr[i]);
-                    numPanel.add(butArr[i]);
+    private void populateMap() {
+        JButton newButton = null;
+        for (String buttonName : buttonNames) {
+            newButton = buildButton(buttonName);
+            switch(buttonName) {
+                case "but0":
+                    newButton.setText("0");
                     break;
-                case 1:
-                    setBut1(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but1":
+                    newButton.setText("1");
                     break;
-                case 2:
-                    setBut2(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but2":
+                    newButton.setText("2");
                     break;
-                case 3:
-                    setBut3(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but3":
+                    newButton.setText("3");
                     break;
-                case 4:
-                    setBut4(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but4":
+                    newButton.setText("4");
                     break;
-                case 5:
-                    setBut5(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but5":
+                    newButton.setText("5");
                     break;
-                case 6:
-                    setBut6(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but6":
+                    newButton.setText("6");
                     break;
-                case 7:
-                    setBut7(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but7":
+                    newButton.setText("7");
                     break;
-                case 8:
-                    setBut8(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but8":
+                    newButton.setText("8");
                     break;
-                case 9:
-                    setBut9(butArr[i]);
-                    numPanel.add(butArr[i]);
+                case "but9":
+                    newButton.setText("9");
+                    break;
+                case "butDot":
+                    newButton.setText(".");
+                    break;
+                case "butNeg":
+                    newButton.setText("(-)");
                     break;
             }
+            buttonMap.put(buttonName, newButton);
         }
-        setButDot(butArr[10]);
-        numPanel.add(butArr[10]);
-
-        setButNeg(butArr[11]);
-        numPanel.add(butArr[11]);
-        
     }
+
+    private void populatePanel() {
+        for (String buttonName : buttonNames) {
+            numPanel.add(buttonMap.get(buttonName));
+        }
+    }
+    
 }
