@@ -2,21 +2,34 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class FunctionPanel {
     //-------------------- Vars
+    private static final String[] buttonNames = {
+        "butPlus", "butMinus", "butTimes",
+        "butDiv", "butEq", "butDel", "butClr",
+        "butLP", "butRP"};
+    private HashMap<String, JButton> buttonMap;
     private JPanel funcPanel;
+
+    /* 
+    Deprecated
     private JButton butPlus, butMinus, butTimes,
                     butDiv, butEq,
                     butDel, butClr, butLP, butRP;
-    
+    */
 
 
     //-------------------- Constructor
 
     public FunctionPanel() {
+        buttonMap = new HashMap<String, JButton>();
         initPanel();
-        createAndAddButtons();
+        populateMap();
+        populatePanel();
+
+        //createAndAddButtons();
     }
 
     //-------------------- Getters & Seters
@@ -29,6 +42,25 @@ public class FunctionPanel {
         this.funcPanel = funcPanel;
     }
 
+    public HashMap<String, JButton> getButtonMap() {
+        return this.buttonMap;
+    }
+
+    public void setButtonMap(HashMap<String, JButton> buttonMap) {
+        this.buttonMap = buttonMap;
+    }
+
+    public JButton getButton(String buttonName) {
+        return this.buttonMap.get(buttonName);
+    }
+
+    public void setButton(String buttonName) {
+        JButton newButton = buildButton(buttonName);
+        buttonMap.put(buttonName, newButton);
+    }
+
+    /* 
+    * Deprecated
     public JButton getButPlus() {
         return this.butPlus;
     }
@@ -101,7 +133,7 @@ public class FunctionPanel {
         this.butRP = butRP;
     
     }
-
+    */
     //-------------------- Functionality
 
 
@@ -109,10 +141,63 @@ public class FunctionPanel {
     private void initPanel() {
         funcPanel = new JPanel();
         funcPanel.setLayout(new GridLayout(5, 2));
-        
     }
 
-    
+    private JButton buildButton (String buttonName) {
+        JButton newButton = new JButton(buttonName);
+        newButton.setActionCommand(buttonName);
+        newButton.setName(buttonName);
+
+        return newButton;
+    }
+
+    private void populateMap() {
+        JButton newButton = null;
+        for (String buttonName : buttonNames) {
+            newButton = buildButton(buttonName);
+            switch(buttonName) {
+                case "butPlus":
+                    newButton.setText("+");
+                    break;
+                case "butMinus":
+                    newButton.setText("-");
+                    break;
+                case "butTimes":
+                    newButton.setText("\u00D7");
+                    break;
+                case "butDiv":
+                    // the obelus
+                    newButton.setText("\u00F7");
+                    break;
+                case "butEq":
+                    newButton.setText("=");
+                    break;
+                case "butDel":
+                    newButton.setText("\u232B");
+                    break;
+                case "butClr":
+                    newButton.setText("Clr");
+                    break;
+                case "butRP":
+                    newButton.setText(")");
+                    break;
+                case "butLP":
+                    newButton.setText("(");
+                    break;
+                      
+            }
+            buttonMap.put(buttonName, newButton);
+        }
+    }
+
+    private void populatePanel() {
+        for (String buttonName : this.buttonMap.keySet()) {
+            funcPanel.add(buttonMap.get(buttonName));
+        }
+    }
+
+    /*
+    * Deprecated
     private void createAndAddButtons() {
         JButton newButton = new JButton();
         String[] operButs = {"+", "-", "*", "/", "(", ")", "Clr", "\u232B", "="};
@@ -184,4 +269,6 @@ public class FunctionPanel {
             }
         }
     }
-}
+    */
+    
+}//end FunctionPanel class
