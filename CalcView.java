@@ -64,6 +64,22 @@ public class CalcView {
         this.opPanel = opPanel;
     }
 
+    public String getInput() {
+        return this.getDisplayPanel().getInputField().getText();
+    }
+
+    public void setInput(String currentInput) {
+        this.getDisplayPanel().getInputField().setText(currentInput);
+    }
+
+    public String getOutput() {
+        return this.getDisplayPanel().getOutputArea().getText();
+    }
+
+    public void setOutput(String currentOutput) {
+        this.getDisplayPanel().getOutputArea().setText(currentOutput);
+    }
+
 
     //-------------------- Functionality
     public void runDemo() {
