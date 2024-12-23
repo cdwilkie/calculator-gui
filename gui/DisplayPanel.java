@@ -6,19 +6,32 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 
-
+/**
+ * <code>DisplayPanel</code> contains the components to 
+ * create an input and output display. <p>
+ * <code>DisplayPanel</code> utilizes a <code>JTextField</code>
+ * to display user input and <code>JTextArea</code> to display
+ * user output, all contained within a <code>JPanel</code>.<p>
+ * Constructor will initliaze all components. The
+ * display <code>JPanel</code> can be retrieved with a call to
+ * <code>getDisplayPanel()</code>
+ */
 public class DisplayPanel {
     //-------------------- Vars
-    private JPanel dispPanel;
+    private JPanel dispPanel;                   // Holds all components
     private JTextField inputField;
     private JTextArea outputArea;
-    private JScrollPane outputScroll;
+    private JScrollPane outputScroll;           
 
     //-------------------- Constructors
+    /**
+     * Default constructor initliazes the <code>JPanel</code> and
+     * components.
+     */
     public DisplayPanel() {
         initPanel();
         createAndAddComponents();;
-    }
+    }//end DisplayPanel()
 
     //-------------------- Getters & Setters
     public JPanel getDisplayPanel() {
