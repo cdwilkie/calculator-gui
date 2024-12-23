@@ -30,7 +30,7 @@ public class DisplayPanel {
      */
     public DisplayPanel() {
         initPanel();
-        createAndAddComponents();;
+        createAndAddComponents();
     }//end DisplayPanel()
 
     //-------------------- Getters & Setters
