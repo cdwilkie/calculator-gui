@@ -178,7 +178,7 @@ class ArithmeticParser {
             this.currentToken = this.scnr.next();
         }
         else {
-            currentToken = null;
+            currentToken = "";
         }
     }//end getNextToken()
 
@@ -198,6 +198,11 @@ class ArithmeticParser {
                 expressionResults -= expressionOperand;
             }//end else if -
         }//end while +|-
+        /* 
+        if (currentToken.equals("(") || currentToken.equals(")")){
+            throw new Exception("Improper expression format");
+        }
+            */
         }
         catch (Exception e) {
             System.out.println("Error - " + e.getMessage());
@@ -210,7 +215,7 @@ class ArithmeticParser {
 
     private double term() throws Exception {
         double termResults = factor();
-        
+    
         while (this.currentToken.equals("*")
                 || this.currentToken.equals("/")) {
 
@@ -222,7 +227,7 @@ class ArithmeticParser {
             }//end if
             else if (currentOperation.equals("/")) {
                     if (termOperand == 0) {
-                        throw new Exception("Error! Cannot divide by zero");
+                        throw new Exception("Cannot divide by zero");
                     }
                     termResults /= termOperand;
                 
@@ -247,8 +252,8 @@ class ArithmeticParser {
             getNextToken();
         }//end else if number
         else {
-            System.out.println("ERROR - Unknown Token: " + this.currentToken);
-            throw new Exception("Unknown or unexpected token encountered");
+            throw new Exception("Unknown or unexpected token encountered: "
+             + this.currentToken);
         }//end else unknown
 
         return factorResults;
