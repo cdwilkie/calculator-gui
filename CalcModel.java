@@ -177,6 +177,9 @@ class ArithmeticParser {
         if (this.scnr.hasNext()) {
             this.currentToken = this.scnr.next();
         }
+        else {
+            currentToken = null;
+        }
     }//end getNextToken()
 
     private double expression() {
