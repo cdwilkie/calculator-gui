@@ -110,14 +110,17 @@ public class CalcController {
                         currentInput = "";
                         break;
                     case "butDel":
-                    if (currentInput.length() > 0) {
-                        if (currentInput.charAt(currentInput.length()-1) == ' ') {
-                            currentInput = currentInput.substring(0, currentInput.length()-2);
+                        if (currentInput.length() > 0) {
+                            for (int i = currentInput.length() - 1; i >= 0; --i) {
+                                if (Character.isWhitespace(currentInput.charAt(i))) {
+                                    continue;
+                                }
+                                else {
+                                    currentInput = currentInput.substring(0,i);
+                                    break;
+                                }
+                            }
                         }
-                        else {
-                            currentInput = currentInput.substring(0, currentInput.length()-1);
-                        }
-                    }
                         break;
                     case "butClr":
                         currentInput = "";
