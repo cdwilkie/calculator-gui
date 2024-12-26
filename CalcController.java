@@ -1,3 +1,7 @@
+import java.math.*;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
 public class CalcController {
     //-------------------- Vars
     private CalcView calcView;
@@ -96,16 +100,18 @@ public class CalcController {
                         currentInput += " - ";
                         break;
                     case "butTimes":
-                        currentInput += " * ";
+                        currentInput += " \u00D7 ";
                         break;
                     case "butDiv":
-                        currentInput += " / ";
+                        currentInput += " \u00F7 ";
                         break;
                     case "butEq":
-                        double theResults = calcModel.calculateResults(currentInput);
+                        BigDecimal theResults = new BigDecimal(calcModel.calculateResults(currentInput));
+                        DecimalFormat deciFormat = new DecimalFormat("#,##0.####################");
+                        String formatted = deciFormat.format(theResults);
                         String currentHistory = calcView.getOutput();
                         currentHistory += (currentInput + " = " +
-                                Double.toString(theResults) + "\n");
+                                formatted + "\n");
                         calcView.setOutput(currentHistory);
                         currentInput = "";
                         break;
@@ -134,11 +140,48 @@ public class CalcController {
 
    
     private void setOperationsListeners() {
+        for (String buttonName : calcView.getOperationsPanel().getButtonMap().keySet()) {
+            calcView.getOperationsPanel().getButton(buttonName).addActionListener(e -> {
+                String currentInput = calcView.getInput();
+                switch(buttonName) {
+                    case "!":
+                        
+                        currentInput += "!";
+                        BigDecimal theResults = new BigDecimal(MyMath.factorial(Double.valueOf(calcView.getInput())));
+                        DecimalFormat deciFormat = new DecimalFormat("#,##0.00");
+                        String formatted = deciFormat.format(theResults);
+                        String currentHistory = calcView.getOutput();
+                        currentHistory += (currentInput + " = " +
+                                formatted + "\n");
+                        calcView.setOutput(currentHistory);
+                        currentInput = "";
+                        
+                        break;
+                    case "log":
+                        currentInput += "log";
+                        break;
+                    case "exponent":
+                        Scanner scnr = new Scanner(currentInput);
+                        scnr.useDelimiter("^");
+                        double operandA = scnr.nextDouble();
+                        double operandB = scnr.nextDouble();
+                        theResults = new BigDecimal(Math.pow(operandA, operandB));
+                        currentInput += "^";
+                        break;
+                    case "squareroot":
+                        currentInput += "\u221A";
+                        break;
+                }
+            calcView.setInput(currentInput);
+            });
+        }
+        /* 
         calcView.getOperationsPanel().getButton("squareroot").addActionListener(e->{
             
             calcView.getDisplayPanel().getOutputArea().setText("\u221A");
             calcView.getDisplayPanel().getInputField().setText("");
         });
+        */
     }
 
 }
