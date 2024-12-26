@@ -217,15 +217,19 @@ class ArithmeticParser {
         double termResults = factor();
     
         while (this.currentToken.equals("*")
-                || this.currentToken.equals("/")) {
+                || this.currentToken.equals("\u00D7")
+                || this.currentToken.equals("/")
+                || this.currentToken.equals("\u00F7")) {
 
             String currentOperation = this.currentToken;
             double termOperand = factor();
 
-            if (currentOperation.equals("*")) {
+            if (currentOperation.equals("*")
+                    || currentOperation.equals("\u00D7")) {
                 termResults *= termOperand;
             }//end if
-            else if (currentOperation.equals("/")) {
+            else if (currentOperation.equals("/")
+                        || currentOperation.equals("\u00F7")) {
                     if (termOperand == 0) {
                         throw new Exception("Cannot divide by zero");
                     }
