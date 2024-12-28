@@ -163,10 +163,10 @@ public class CalcController {
                     case "exponent":
                         Scanner scnr = new Scanner(currentInput);
                         scnr.useDelimiter("^");
-                        double operandA = scnr.nextDouble();
-                        double operandB = scnr.nextDouble();
-                        theResults = new BigDecimal(Math.pow(operandA, operandB));
+                        
+
                         currentInput += "^";
+                        scnr.close();
                         break;
                     case "squareroot":
                         currentInput += "\u221A";
