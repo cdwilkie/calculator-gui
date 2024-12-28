@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
+
 import gui.*;
+import java.text.*;
 
 public class CalcView {
     //-------------------- Vars
@@ -55,7 +58,13 @@ public class CalcView {
     }
 
     // new stuff
-
+    public String numberFormat(double theResults) {
+        DecimalFormat deciFormat = new DecimalFormat("#,##0.********************");
+        String formattedResults = deciFormat.format(theResults);
+        
+        return formattedResults;
+    }
+    
     public OperationsPanel getOperationsPanel() {
         return this.opPanel;
     }
