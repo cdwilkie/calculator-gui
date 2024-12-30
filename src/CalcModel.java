@@ -1,5 +1,7 @@
 package src;
 import java.util.Scanner;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /*
  * CalcModel is a CLI representation of an arithmetic
@@ -20,20 +22,20 @@ import java.util.Scanner;
  */
 public class CalcModel {
     private String calcInput;
-    private double calcResults; // might should be string for future functionality
+    private String calcResults; // might should be string for future functionality
     private ArithmeticParser mathParser;
     
 
     // Constructors
     public CalcModel() {
         calcInput = null;
-        calcResults = 0.0;
+        calcResults = null;
         mathParser = null;
     }
 
     public CalcModel(String calcInput) {
         this.calcInput = calcInput;
-        this.calcResults = 0.0;
+        this.calcResults = "0";
         mathParser = null;
     }
 
@@ -46,11 +48,11 @@ public class CalcModel {
         return this.calcInput;
     }
 
-    public double getResults() {
+    public String getResults() {
         return this.calcResults;
     }
 
-    public void setResults(double calcResults) {
+    public void setResults(String calcResults) {
         this.calcResults = calcResults;
     }
 
@@ -73,17 +75,17 @@ public class CalcModel {
     }
 
     // All-in-one function for user operability.
-    public double calculateResults(String calcInput) {
+    public String calculateResults(String calcInput) {
         setInput(calcInput);
         parseAndCalculate();
-        double theResults = getResults();
+        String theResults = getResults();
         return theResults;
     }
 
     public void calculateAndPrint(String calcInput) {
         setInput(calcInput);
         parseAndCalculate();
-        double theResults = getResults();
+        String theResults = getResults();
         System.out.println(theResults);
     }
 
@@ -115,21 +117,21 @@ public class CalcModel {
 class ArithmeticParser {
     // Vars
     private String inputString;
-    private double calculationResults;
+    private String calculationResults;
     private Scanner scnr;
     private String currentToken;
 
     // Constructors
     public ArithmeticParser() {
         inputString = null;
-        calculationResults = 0.0;
+        calculationResults = null;
         scnr = null;
         currentToken = null;
     }
     
     public ArithmeticParser(String inputString) {
         this.inputString = inputString;
-        calculationResults = 0.0;
+        calculationResults = "";
         initilaizeScanner();
         currentToken = null;
     }
@@ -139,7 +141,7 @@ class ArithmeticParser {
         return inputString;
     }//end getInputString()
 
-    public double getResults() {
+    public String getResults() {
         return calculationResults;
     }//end getResults()
 
@@ -151,7 +153,7 @@ class ArithmeticParser {
         this.inputString = inputString;
     }//end setInputString()
 
-    public void setResults(double calculationResults) {
+    public void setResults(String calculationResults) {
         this.calculationResults = calculationResults;
     }//end setResults()
 
@@ -162,10 +164,15 @@ class ArithmeticParser {
 
     //-------------------- Functionality
     public void runParse() {
+        try {
         initilaizeScanner();
-        double parseResults = 0.0;
+        BigDecimal parseResults = new BigDecimal(0);
         parseResults = expression();
-        setResults(parseResults);
+        setResults(parseResults.toPlainString());
+        }
+        catch (Exception e) {
+            setResults("Error");
+        }//end catch
     }
     
     //------------------- Logic & Helpers
@@ -186,35 +193,33 @@ class ArithmeticParser {
         }
     }//end getNextToken()
 
-    private double expression() {
-        double expressionResults = 0.0;
-        try {
+    private BigDecimal expression() throws Exception {
+        BigDecimal expressionResults = new BigDecimal(0);
+        
         expressionResults = term();
         while (this.currentToken.equals("+")
                 || this.currentToken.equals("-")) {
             String currentOperation = this.currentToken;
-            double expressionOperand = term();
+            BigDecimal expressionOperand = term();
 
             if (currentOperation.equals("+")) {
-                expressionResults += expressionOperand;
+                expressionResults = expressionResults.add(expressionOperand);
+                //expressionResults += expressionOperand;
             }//end if +
             else if (currentOperation.equals("-")) {
-                expressionResults -= expressionOperand;
+                expressionResults = expressionResults.subtract(expressionOperand);
+                //expressionResults -= expressionOperand;
             }//end else if -
         }//end while +|-
-        }//end try
-        catch (Exception e) {
-            System.out.println("Error - " + e.getMessage());
-            expressionResults = Double.NaN;
-            return expressionResults;
-        }//end catch
+        
+        
 
         return expressionResults;
     }//end expression()
 
-    private double term() throws Exception {
+    private BigDecimal term() throws Exception {
         //double termResults = factor();
-        double termResults = power();
+        BigDecimal termResults = power();
     
         while (this.currentToken.equals("*")
                 || this.currentToken.equals("\u00D7")
@@ -222,18 +227,18 @@ class ArithmeticParser {
                 || this.currentToken.equals("\u00F7")) {
 
             String currentOperation = this.currentToken;
-            double termOperand = factor();
+            BigDecimal termOperand = factor();
 
             if (currentOperation.equals("*")
                     || currentOperation.equals("\u00D7")) {
-                termResults *= termOperand;
+                termResults = termResults.multiply(termOperand);
             }//end if
             else if (currentOperation.equals("/")
                         || currentOperation.equals("\u00F7")) {
-                    if (termOperand == 0) {
+                    if (termOperand.compareTo(new BigDecimal(0)) == 0) {
                         throw new Exception("Cannot divide by zero");
                     }
-                    termResults /= termOperand;
+                    termResults = termResults.divide(termOperand, 20, RoundingMode.HALF_UP);
                 
             }//end else if
         }//end while 
@@ -242,12 +247,12 @@ class ArithmeticParser {
     }//end term()
 
     
-      
-    private double power() throws Exception {
-        double powerResults = factor();
+    //TODO FIx power in MyMath to work with BigDecimals
+    private BigDecimal power() throws Exception {
+        BigDecimal powerResults = factor();
         while (currentToken.equals("^")) {
-            double exponentValue = factor();
-            powerResults = Math.pow(powerResults, exponentValue);
+            BigDecimal exponentValue = factor();
+            powerResults = new BigDecimal(Math.pow(powerResults.doubleValue(), exponentValue.doubleValue()));
         }
 
         return powerResults;
@@ -255,8 +260,8 @@ class ArithmeticParser {
     }//end power()
      
 
-    private double factor() throws Exception {
-        double factorResults = 0.0;
+    private BigDecimal factor() throws Exception {
+        BigDecimal factorResults = new BigDecimal(0);
         
         getNextToken();
 
@@ -267,7 +272,7 @@ class ArithmeticParser {
             }//end if ")"
         }//end if "("
         else if (isNumber(this.currentToken)) {
-            factorResults = Double.valueOf(this.currentToken);
+            factorResults = new BigDecimal(currentToken);
             getNextToken();
         }//end else if number
         else {
