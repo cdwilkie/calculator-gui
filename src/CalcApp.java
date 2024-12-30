@@ -1,15 +1,26 @@
 package src;
-import javax.swing.*;
 
 public class CalcApp {
-
-    public static void main(String[] args) {
-        CalcView testCalc = new CalcView();
-        CalcModel testModel = new CalcModel();
-        CalcController calcController = new CalcController(testCalc, testModel);
-        SwingUtilities.invokeLater(() -> {
-            calcController.getCalcView().runDemo();
-        });
+    //-------------------- Vars
+    private CalcModel calcModel;
+    private CalcView calcGUI;
+    private CalcController calcControl;
+    
+    //-------------------- Constructors
+    public CalcApp() {
+        calcModel = new CalcModel();
+        calcGUI = new CalcView();
+        calcControl = new CalcController(calcGUI, calcModel);
     }
+    //-------------------- Getters & Setters
+
+    //-------------------- Functionality
+    public void startApp() {
+        calcControl.getCalcView().runDemo();
+    }
+
+    //-------------------- Logic & Helpers
+
+   
     
 }
