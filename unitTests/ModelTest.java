@@ -276,50 +276,50 @@ public class ModelTest {
         testCases.put("2 * 3 + 4", "10");
 
         // Parentheses overriding precedence
-        testCases.put("(2 + 3) * 4", "20");
-        testCases.put("2 * (3 + 4)", "14");
+        testCases.put("( 2 + 3 ) * 4", "20");
+        testCases.put("2 * ( 3 + 4 )", "14");
 
         // Nested parentheses
-        testCases.put("(2 + (3 * 4))", "14");
-        testCases.put("((2 + 3) * (4 + 5))", "45");
+        testCases.put("( 2 + ( 3 * 4 ) )", "14");
+        testCases.put("( ( 2 + 3 ) * ( 4 + 5 ) )", "45");
 
         // Multiple levels of nesting
-        testCases.put("((2 + 3) * (4 + (1 * 2)))", "40");
-        testCases.put("((1 + 2) * (3 + (4 * (5 - 2))))", "45");
+        testCases.put("( ( 2 + 3 ) * ( 4 + ( 1 * 2 ) ) )", "30");
+        testCases.put("( ( 1 + 2 ) * ( 3 + ( 4 * ( 5 - 2 ) ) ) )", "45");
 
         // Parentheses around a single number
-        testCases.put("(5)", "5");
-        testCases.put("((5))", "5");
+        testCases.put("( 5 )", "5");
+        testCases.put("( ( 5 ) )", "5");
 
         // Parentheses with negative numbers
-        testCases.put("(-5 + 3)", "-2");
-        testCases.put("(-5 + (3 * 2))", "1");
-        testCases.put("((3 - 5) * -2)", "4");
+        testCases.put("( -5 + 3 )", "-2");
+        testCases.put("( -5 + ( 3 * 2 ) )", "1");
+        testCases.put("( ( 3 - 5 ) * -2 )", "4");
 
         // Parentheses with decimals
-        testCases.put("(2.5 + 3.5) * 2", "12");
-        testCases.put("2 * (1.5 + 0.5)", "4");
+        testCases.put("( 2.5 + 3.5 ) * 2", "12");
+        testCases.put("2 * ( 1.5 + 0.5 )", "4");
 
         // Parentheses with exponents
-        testCases.put("(2 + 3) ^ 2", "25");
-        testCases.put("2 ^ (3 + 2)", "32");
+        testCases.put("( 2 + 3 ) ^ 2", "25");
+        testCases.put("2 ^ ( 3 + 2 )", "32");
 
         // Complex mixed operations
-        testCases.put("((2 + 3) * 4) + 5", "25");
-        testCases.put("5 + ((2 + 3) * 4)", "25");
-        testCases.put("((2 + (3 * 4)) - 5) ^ 2", "81");
+        testCases.put("( ( 2 + 3 ) * 4 ) + 5", "25");
+        testCases.put("5 + ( ( 2 + 3 ) * 4 )", "25");
+        testCases.put("( ( 2 + ( 3 * 4 ) ) - 5 ) ^ 2", "81");
 
         // Large expressions
-        testCases.put("(10 + 20) * (30 / (5 + 5))", "60");
-        testCases.put("(10 / (2 + 3)) * (6 - 4)", "4");
+        testCases.put("( 10 + 20 ) * ( 30 / ( 5 + 5 ) )", "90");
+        testCases.put("( 10 / ( 2 + 3 ) ) * ( 6 - 4 )", "4");
 
         // Parentheses ensuring addition before multiplication
-        testCases.put("2 * (3 + 4 * (5 - 2))", "38");
-        testCases.put("(2 * (3 + 4)) * (5 - 2)", "42");
+        testCases.put("2 * ( 3 + 4 * ( 5 - 2 ) )", "30");
+        testCases.put("( 2 * ( 3 + 4 ) ) * ( 5 - 2 )", "42");
 
         // Parentheses with zero
-        testCases.put("(0 + 3) * 5", "15");
-        testCases.put("0 * (3 + 5)", "0");
+        testCases.put("( 0 + 3 ) * 5", "15");
+        testCases.put("0 * ( 3 + 5 )", "0");
 
     }
 
