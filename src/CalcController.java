@@ -106,6 +106,10 @@ public class CalcController {
                         currentInput += " \u00F7 ";
                         break;
                     case "butEq":
+                        String calcResults = calcModel.calculateResults(currentInput);
+                        if (!calcResults.equals("Error")) {
+
+                        
                         BigDecimal theResults = new BigDecimal(calcModel.calculateResults(currentInput));
                         DecimalFormat deciFormat = new DecimalFormat("#,##0.####################");
                         String formatted = deciFormat.format(theResults);
@@ -114,6 +118,14 @@ public class CalcController {
                                 formatted + "\n");
                         calcView.setOutput(currentHistory);
                         currentInput = "";
+                        }
+                        else {
+                            String currentHistory = calcView.getOutput();
+                            currentHistory += (currentInput + " = " +
+                                calcResults + "\n");
+                            calcView.setOutput(currentHistory);
+                            currentInput = "";
+                        }
                         break;
                     case "butDel":
                         if (currentInput.length() > 0) {
