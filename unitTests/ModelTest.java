@@ -26,7 +26,7 @@ public class ModelTest {
         testCalc = new CalcModel();
     }
 
-    public void test() {
+    public void runTest() {
         testAddition();
         testSubtraction();
         testMultiply();
@@ -67,16 +67,7 @@ public class ModelTest {
         System.out.println("\n------------------- Parenthesis and Grouping");
         HashMap <String, String> testCases = new HashMap<String, String>();
         setParenthesisTest(testCases);
-        int testNumber = 0;
-        for (String testInput : testCases.keySet()) {
-            testNumber++;
-            printTestName(testNumber, testInput);
-            String expectedResults = testCases.get(testInput);
-            theResults = testCalc.calculateResults(testInput);
-            System.out.print(theResults + " & " + expectedResults + " ");
-            testResults(theResults, expectedResults);
-            
-        }
+        testEachInput(testCases);
     }
 
     private void testAddition() {
