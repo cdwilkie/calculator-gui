@@ -161,12 +161,7 @@ public class CalcController {
                         currentInput += "log";
                         break;
                     case "exponent":
-                        Scanner scnr = new Scanner(currentInput);
-                        scnr.useDelimiter("^");
-                        
-
-                        currentInput += "^";
-                        scnr.close();
+                        currentInput += " ^ ";
                         break;
                     case "squareroot":
                         currentInput += "\u221A";

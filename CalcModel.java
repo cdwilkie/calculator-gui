@@ -98,13 +98,18 @@ public class CalcModel {
  *                  | <expression> + <term>
  *                  | <xpression - <term>
  * 
- *  <term> ->   <factor>
- *              | <term> * <factor>
- *              | <term> / <factor>
+ *  <term> ->       <factor>
+ *                  | <term> * <factor>
+ *                  | <term> / <factor>
  * 
- *  <factor> -> Number
- *              | ( <expression> )
- *              | unkown
+ *  <power> ->      <factor>
+ *                  | <factor> ^ <power>
+ * 
+ *  <factor> ->     Number
+ *                  | ( <expression> )
+ *                  | <function>
+ * 
+ *  <function> ->   FunctionName ( <expression> )
  */
 class ArithmeticParser {
     // Vars
@@ -114,14 +119,12 @@ class ArithmeticParser {
     private String currentToken;
 
     // Constructors
-     
     public ArithmeticParser() {
         inputString = null;
         calculationResults = 0.0;
         scnr = null;
         currentToken = null;
     }
-    
     
     public ArithmeticParser(String inputString) {
         this.inputString = inputString;
@@ -198,23 +201,19 @@ class ArithmeticParser {
                 expressionResults -= expressionOperand;
             }//end else if -
         }//end while +|-
-        /* 
-        if (currentToken.equals("(") || currentToken.equals(")")){
-            throw new Exception("Improper expression format");
-        }
-            */
-        }
+        }//end try
         catch (Exception e) {
             System.out.println("Error - " + e.getMessage());
             expressionResults = Double.NaN;
             return expressionResults;
-        }
+        }//end catch
 
         return expressionResults;
     }//end expression()
 
     private double term() throws Exception {
-        double termResults = factor();
+        //double termResults = factor();
+        double termResults = power();
     
         while (this.currentToken.equals("*")
                 || this.currentToken.equals("\u00D7")
@@ -241,8 +240,23 @@ class ArithmeticParser {
         return termResults;
     }//end term()
 
+    
+      
+    private double power() throws Exception {
+        double powerResults = factor();
+        while (currentToken.equals("^")) {
+            double exponentValue = factor();
+            powerResults = Math.pow(powerResults, exponentValue);
+        }
+
+        return powerResults;
+      
+    }//end power()
+     
+
     private double factor() throws Exception {
         double factorResults = 0.0;
+        
         getNextToken();
 
         if (this.currentToken.equals("(")) {
@@ -262,6 +276,8 @@ class ArithmeticParser {
 
         return factorResults;
     }//end factor()
+
+   
 
     // Helper returns true if String can be parsed as number
     private boolean isNumber(String calcToken) {
