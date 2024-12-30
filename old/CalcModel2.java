@@ -2,7 +2,7 @@ package old;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CalcModel {
+public class CalcModel2 {
     // Basic Calculator
     // arithmetic operations
     // add, subtract, divide, multiply
@@ -16,7 +16,7 @@ public class CalcModel {
 
     // ---------- Constructors
     // Default Constructor
-    public CalcModel() {
+    public CalcModel2() {
         userOperands = new ArrayList<Double>();
         userOperations = new ArrayList<String>();
         displayResults = 0;

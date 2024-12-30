@@ -1,4 +1,6 @@
+package src;
 import java.util.*;
+
 /**
  * MyMath reimplements a portion of functionality
  * of the Java Math class {@link java.lang.Math}<p>

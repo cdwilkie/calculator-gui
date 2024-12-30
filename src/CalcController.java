@@ -1,6 +1,6 @@
+package src;
 import java.math.*;
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 public class CalcController {
     //-------------------- Vars

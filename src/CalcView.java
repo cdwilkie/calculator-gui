@@ -1,6 +1,6 @@
+package src;
 import javax.swing.*;
 import java.awt.*;
-import java.math.BigDecimal;
 
 import gui.*;
 import java.text.*;
