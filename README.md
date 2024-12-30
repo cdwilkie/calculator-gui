@@ -2,4 +2,3 @@
 Simple Calculator GUI
 
 ToDo:
-
