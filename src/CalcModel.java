@@ -165,9 +165,8 @@ class ArithmeticParser {
     //-------------------- Functionality
     public void runParse() {
         try {
-        initilaizeScanner();
-        BigDecimal parseResults = new BigDecimal(0);
-        parseResults = expression();
+            initilaizeScanner();
+            BigDecimal parseResults = expression();
         setResults(parseResults.toPlainString());
         }
         catch (Exception e) {
