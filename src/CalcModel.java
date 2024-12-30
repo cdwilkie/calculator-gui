@@ -22,7 +22,7 @@ import java.math.RoundingMode;
  */
 public class CalcModel {
     private String calcInput;
-    private String calcResults; // might should be string for future functionality
+    private String calcResults;
     private ArithmeticParser mathParser;
     
 
@@ -167,7 +167,7 @@ class ArithmeticParser {
         try {
             initilaizeScanner();
             BigDecimal parseResults = expression();
-        setResults(parseResults.toPlainString());
+            setResults(parseResults.toPlainString());
         }
         catch (Exception e) {
             setResults("Error");
