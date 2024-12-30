@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class MyMath {
     /**Pi representation for MyMath class */
-    static final double PI = 3.141592653589793d;
+    static final double PI = 3.141592653589793;
     static final double RADIANS_IN_DEGREE = PI / 180; //One Radian
     static final double DEGREES_IN_RADIAN = 180 / PI; //One Degree
 
