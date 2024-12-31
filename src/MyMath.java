@@ -358,8 +358,6 @@ public class MyMath {
         return theResult;
     }
 
-    public static BigDecimal bigPower(BigDecimal base, BigDeciaml exponent) {
-
-    }
+    
 
 }//end MyMath
