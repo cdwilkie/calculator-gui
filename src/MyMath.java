@@ -1,5 +1,6 @@
 package src;
 import java.util.*;
+import java.math.BigDecimal;
 
 /**
  * MyMath reimplements a portion of functionality
@@ -356,4 +357,9 @@ public class MyMath {
 
         return theResult;
     }
+
+    public static BigDecimal bigPower(BigDecimal base, BigDeciaml exponent) {
+
+    }
+
 }//end MyMath
