@@ -78,9 +78,9 @@ public class CalcController {
                     break;
                 }
                 calcView.setInput(currentInput);
-            });
-        }
-    }
+            });//end addActionListener()
+        }//end for each number button
+    }//end setNumberListeners()
 
     private void setFunctionListeners() {
         for (String buttonName : calcView.getFunctionPanel().getButtonMap().keySet()) {
@@ -108,16 +108,14 @@ public class CalcController {
                     case "butEq":
                         String calcResults = calcModel.calculateResults(currentInput);
                         if (!calcResults.equals("Error")) {
-
-                        
-                        BigDecimal theResults = new BigDecimal(calcModel.calculateResults(currentInput));
-                        DecimalFormat deciFormat = new DecimalFormat("#,##0.####################");
-                        String formatted = deciFormat.format(theResults);
-                        String currentHistory = calcView.getOutput();
-                        currentHistory += (currentInput + " = " +
+                            BigDecimal theResults = new BigDecimal(calcModel.calculateResults(currentInput));
+                            DecimalFormat deciFormat = new DecimalFormat("#,##0.####################");
+                            String formatted = deciFormat.format(theResults);
+                            String currentHistory = calcView.getOutput();
+                            currentHistory += (currentInput + " = " +
                                 formatted + "\n");
-                        calcView.setOutput(currentHistory);
-                        currentInput = "";
+                            calcView.setOutput(currentHistory);
+                            currentInput = "";
                         }
                         else {
                             String currentHistory = calcView.getOutput();
@@ -148,7 +146,7 @@ public class CalcController {
                 calcView.setInput(currentInput);
             });//end addActionListener()
         }//end for each button name
-    }//end setFuncListeners2()
+    }//end setFuncListeners()
 
    
     private void setOperationsListeners() {
@@ -157,7 +155,6 @@ public class CalcController {
                 String currentInput = calcView.getInput();
                 switch(buttonName) {
                     case "!":
-                        
                         currentInput += "!";
                         BigDecimal theResults = new BigDecimal(MyMath.factorial(Double.valueOf(calcView.getInput())));
                         DecimalFormat deciFormat = new DecimalFormat("#,##0.00");
@@ -178,17 +175,10 @@ public class CalcController {
                     case "squareroot":
                         currentInput += "\u221A";
                         break;
-                }
+                }//end switch(buttonName)
             calcView.setInput(currentInput);
-            });
-        }
-        /* 
-        calcView.getOperationsPanel().getButton("squareroot").addActionListener(e->{
-            
-            calcView.getDisplayPanel().getOutputArea().setText("\u221A");
-            calcView.getDisplayPanel().getInputField().setText("");
-        });
-        */
-    }
+            });//end addActionListener()
+        }//end for each operation button
+    }//end setOperationsListeners()
 
-}
+}//end CalcController

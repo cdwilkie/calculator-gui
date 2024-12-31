@@ -189,9 +189,9 @@ public class ModelTest {
         testCases.put("10 / 10", "1");
         testCases.put("0.5 / 0.5", "1");
 
-        // Division by zero (undefined or error handling expected in implementation)
-        testCases.put("10 / 0", "Error"); // Replace with behavior expected by your calculator
-        testCases.put("0 / 0", "Error"); // Replace with behavior expected by your calculator
+        // Division by zero (Error expected)
+        testCases.put("10 / 0", "Error"); 
+        testCases.put("0 / 0", "Error"); 
 
         // Division with zero numerator
         testCases.put("0 / 10", "0");
@@ -203,8 +203,8 @@ public class ModelTest {
 
         // Special cases
         testCases.put("-0 / 5", "0");
-        testCases.put("1 / -0", "Error"); // Replace based on implementation
-        testCases.put("0.0 / 0.0", "Error"); // Replace based on implementation
+        testCases.put("1 / -0", "Error"); 
+        testCases.put("0.0 / 0.0", "Error"); 
 
     }
 
@@ -223,7 +223,7 @@ public class ModelTest {
 
         // Exponent of 0
         testCases.put("5 ^ 0", "1");
-        testCases.put("0 ^ 0", "1"); // Conventionally treated as 1 in most implementations
+        testCases.put("0 ^ 0", "1"); 
         testCases.put("1 ^ 0", "1");
 
         // Base of 0
@@ -315,7 +315,6 @@ public class ModelTest {
     }
 
     private void printTestName(int testNumber, String testInput) {
-        
         testName = "Test #" + testNumber;
         System.out.print(testName + " with " + testInput + ": ");
     }//end printTest
