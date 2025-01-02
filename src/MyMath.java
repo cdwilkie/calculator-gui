@@ -1,6 +1,7 @@
 package src;
 import java.util.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * MyMath reimplements a portion of functionality
@@ -13,6 +14,7 @@ public class MyMath {
     static final double PI = 3.141592653589793;
     static final double RADIANS_IN_DEGREE = PI / 180; //One Radian
     static final double DEGREES_IN_RADIAN = 180 / PI; //One Degree
+    static final double EULERS_NUMBER = computeE().doubleValue();
 
     /**
      * toDegrees() takes a double value representing an angle
@@ -356,6 +358,65 @@ public class MyMath {
         }
 
         return theResult;
+    }
+
+    public static BigDecimal bigFactorial(BigDecimal inputNumber) {
+        BigDecimal theResult = new BigDecimal(1);
+        //BigDecimal currentNum = BigDecimal.ONE;
+        for (BigDecimal i = inputNumber; i.compareTo(BigDecimal.ZERO) > 0; i = i.subtract(BigDecimal.ONE)) {
+            theResult = theResult.multiply(i);
+        }
+
+        return theResult;
+    }
+
+    // sum from 0 to infinity 1/n!
+    public static BigDecimal computeE() {
+        BigDecimal currentE = BigDecimal.ZERO;
+        //BigDecimal newTerm = new BigDecimal(0);
+        for (int i = 0; i < 100; ++i) {
+            BigDecimal theQuotient = BigDecimal.ONE;
+            theQuotient = theQuotient.divide(bigFactorial(new BigDecimal(i)), 20, RoundingMode.HALF_UP);
+            currentE = currentE.add(theQuotient);
+        }
+
+        return currentE;
+    }
+
+    public static BigDecimal natLog(BigDecimal inputNumber) {
+        BigDecimal theResults = BigDecimal.ZERO;
+        BigDecimal firstTerm = BigDecimal.ONE;
+        BigDecimal secTerm = BigDecimal.ONE;
+        // form = firstTerm - ( 1 - (input / e^firstTerm))
+        do {
+        firstTerm = secTerm;
+        BigDecimal theQuotient = new BigDecimal(MyMath.EULERS_NUMBER);
+        theQuotient = theQuotient.pow(firstTerm.intValue());
+        theQuotient = inputNumber.divide(theQuotient,20,RoundingMode.HALF_UP);
+        theQuotient = BigDecimal.ONE.subtract(theQuotient);
+        
+        secTerm = firstTerm.subtract(theQuotient);
+
+        } while(isClose(firstTerm, secTerm));
+
+        return theResults;
+    }
+
+    private static boolean isClose(BigDecimal firstTerm, BigDecimal secondTerm) {
+        BigDecimal faultTol = new BigDecimal("1e-10");
+        boolean isClose = false;
+        BigDecimal theDiff = secondTerm.subtract(firstTerm);
+        theDiff = theDiff.abs();
+
+        if (theDiff.compareTo(faultTol) > 0) {
+            isClose = false;
+        }
+        else {
+            isClose = true;
+        }
+
+
+        return isClose;
     }
 
     
