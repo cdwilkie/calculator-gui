@@ -172,6 +172,8 @@ public class CalcController {
                     case "pi":
                         currentInput += "\u03C0";
                         break;
+                    case "mem":
+                        currentInput += calcModel.getMemory();
                 }//end switch(buttonName)
             calcView.setInput(currentInput);
             });//end addActionListener()
