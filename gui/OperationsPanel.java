@@ -8,7 +8,7 @@ public class OperationsPanel {
     //-------------------- Vars
     private static final String[] buttonNames = {
         "!", "ln", "exponent", "squareroot",
-        "eulersNum", "pi"};
+        "eulersNum", "pi", "mem"};
 
     private JPanel opPanel;
     private HashMap<String, JButton> buttonMap;
