@@ -24,6 +24,7 @@ public class CalcModel {
     private String calcInput;
     private String calcResults;
     private ArithmeticParser mathParser;
+    private String calcMemory;
     
 
     // Constructors
@@ -31,12 +32,14 @@ public class CalcModel {
         calcInput = null;
         calcResults = null;
         mathParser = null;
+        calcMemory = null;
     }
 
     public CalcModel(String calcInput) {
         this.calcInput = calcInput;
         this.calcResults = "0";
         mathParser = null;
+        calcMemory = null;
     }
 
     // setters & getters
@@ -54,6 +57,14 @@ public class CalcModel {
 
     public void setResults(String calcResults) {
         this.calcResults = calcResults;
+    }
+
+    public String getMemory() {
+        return this.calcMemory;
+    }
+
+    public void setMemory(String calcMemory) {
+        this.calcMemory = calcMemory;
     }
 
     public ArithmeticParser getParser() {
@@ -74,11 +85,19 @@ public class CalcModel {
         
     }
 
+    public void storeResults(String calcResults) {
+        if (!calcResults.equalsIgnoreCase("Error")) {
+            setMemory(calcResults);
+        };
+    }
+    
+
     // All-in-one function for user operability.
     public String calculateResults(String calcInput) {
         setInput(calcInput);
         parseAndCalculate();
         String theResults = getResults();
+        storeResults(theResults);
         return theResults;
     }
 
