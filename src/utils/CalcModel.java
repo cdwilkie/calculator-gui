@@ -1,4 +1,4 @@
-package src;
+package src.utils;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,8 +1,8 @@
-package main;
+package src;
 
 import javax.swing.SwingUtilities;
 
-import src.*;
+import src.utils.CalcApp;
 
 public class CalcLauncher {
     
