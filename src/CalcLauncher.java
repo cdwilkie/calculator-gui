@@ -2,7 +2,7 @@ package src;
 
 import javax.swing.SwingUtilities;
 
-import src.utils.CalcApp;
+import utils.CalcApp;
 
 public class CalcLauncher {
     
