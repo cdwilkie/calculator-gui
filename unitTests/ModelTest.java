@@ -4,7 +4,7 @@ package unitTests;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import src.utils.CalcModel;
+import utils.CalcModel;
 
 public class ModelTest {
 

@@ -1,7 +1,7 @@
 package utils;
 import javax.swing.*;
 
-import src.gui.*;
+import gui.*;
 
 import java.awt.*;
 import java.text.*;
