@@ -406,13 +406,16 @@ class ArithmeticParser {
         return isFunction;
     }
 
-    private BigDecimal evaluateFunction(String calcToken, BigDecimal functionArgument) {
+    private BigDecimal evaluateFunction(String calcToken, BigDecimal functionArgument) throws Exception {
         BigDecimal theResults = new BigDecimal(0);
         switch(calcToken) {
             case "ln":
                 theResults = MyMath.natLog(functionArgument);
                 break;
             case "log":
+                BigDecimal logBase = functionArgument;
+                BigDecimal logValue = expression();
+                theResults = MyMath.log(logBase, logValue);
                 break;
             case "sin":
                 break;
