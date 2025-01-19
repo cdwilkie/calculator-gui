@@ -8,7 +8,7 @@ public class OperationsPanel {
     //-------------------- Vars
     private static final String[] buttonNames = {
         "!", "ln", "exponent", "log",
-        "eulersNum", "pi", "mem"};
+        "eulersNum", "pi", "mem", ","};
 
     private JPanel opPanel;
     private HashMap<String, JButton> buttonMap;
@@ -86,6 +86,11 @@ public class OperationsPanel {
                 case "pi":
                     newButton = buildButton(buttonName);
                     newButton.setText("\u03C0");
+                    buttonMap.put(buttonName, newButton);
+                    break;
+                case ",":
+                    newButton = buildButton(buttonName);
+                    newButton.setText(",");
                     buttonMap.put(buttonName, newButton);
                     break;
                 default:
