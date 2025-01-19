@@ -1,9 +1,10 @@
 
 package unitTests;
 
-import src.CalcModel;
 import java.math.BigDecimal;
 import java.util.HashMap;
+
+import utils.CalcModel;
 
 public class ModelTest {
 

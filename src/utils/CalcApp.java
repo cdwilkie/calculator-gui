@@ -1,4 +1,4 @@
-package src;
+package utils;
 
 public class CalcApp {
     //-------------------- Vars

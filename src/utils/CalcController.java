@@ -1,4 +1,4 @@
-package src;
+package utils;
 import java.math.*;
 import java.text.DecimalFormat;
 
@@ -155,26 +155,25 @@ public class CalcController {
                 String currentInput = calcView.getInput();
                 switch(buttonName) {
                     case "!":
-                        currentInput += "!";
-                        BigDecimal theResults = new BigDecimal(MyMath.factorial(Double.valueOf(calcView.getInput())));
-                        DecimalFormat deciFormat = new DecimalFormat("#,##0.00");
-                        String formatted = deciFormat.format(theResults);
-                        String currentHistory = calcView.getOutput();
-                        currentHistory += (currentInput + " = " +
-                                formatted + "\n");
-                        calcView.setOutput(currentHistory);
-                        currentInput = "";
-                        
+                        currentInput += "factorial ( ";
                         break;
-                    case "log":
-                        currentInput += "log";
+                    case "ln":
+                        currentInput += "ln ( ";
                         break;
                     case "exponent":
                         currentInput += " ^ ";
                         break;
-                    case "squareroot":
-                        currentInput += "\u221A";
+                    case "log":
+                        currentInput += "log ( ";
                         break;
+                    case "eulersNum":
+                        currentInput += "\uD835\uDC52";
+                        break;
+                    case "pi":
+                        currentInput += "\u03C0";
+                        break;
+                    case "mem":
+                        currentInput += calcModel.getMemory();
                 }//end switch(buttonName)
             calcView.setInput(currentInput);
             });//end addActionListener()

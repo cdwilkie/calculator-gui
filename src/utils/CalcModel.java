@@ -1,4 +1,4 @@
-package src;
+package utils;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +24,7 @@ public class CalcModel {
     private String calcInput;
     private String calcResults;
     private ArithmeticParser mathParser;
+    private String calcMemory;
     
 
     // Constructors
@@ -31,12 +32,14 @@ public class CalcModel {
         calcInput = null;
         calcResults = null;
         mathParser = null;
+        calcMemory = null;
     }
 
     public CalcModel(String calcInput) {
         this.calcInput = calcInput;
         this.calcResults = "0";
         mathParser = null;
+        calcMemory = null;
     }
 
     // setters & getters
@@ -54,6 +57,14 @@ public class CalcModel {
 
     public void setResults(String calcResults) {
         this.calcResults = calcResults;
+    }
+
+    public String getMemory() {
+        return this.calcMemory;
+    }
+
+    public void setMemory(String calcMemory) {
+        this.calcMemory = calcMemory;
     }
 
     public ArithmeticParser getParser() {
@@ -74,11 +85,19 @@ public class CalcModel {
         
     }
 
+    public void storeResults(String calcResults) {
+        if (!calcResults.equalsIgnoreCase("Error")) {
+            setMemory(calcResults);
+        };
+    }
+    
+
     // All-in-one function for user operability.
     public String calculateResults(String calcInput) {
         setInput(calcInput);
         parseAndCalculate();
         String theResults = getResults();
+        storeResults(theResults);
         return theResults;
     }
 
@@ -271,10 +290,19 @@ class ArithmeticParser {
             }//end if ")"
         }//end if "("
         else if (isNumber(this.currentToken)) {
-            factorResults = new BigDecimal(currentToken);
+            if (isMathConst(currentToken)) {
+                factorResults = getMathConst(currentToken);
+            }
+            else {
+                factorResults = new BigDecimal(currentToken);
+            }
+            
             getNextToken();
         }//end else if number
-        else {
+        else if (isFunction(this.currentToken)){
+            factorResults = function();
+        }
+        else{
             throw new Exception("Unknown or unexpected token encountered: "
              + this.currentToken);
         }//end else unknown
@@ -282,6 +310,23 @@ class ArithmeticParser {
         return factorResults;
     }//end factor()
 
+    private BigDecimal function() throws Exception{
+        String currentFunction = this.currentToken;
+        getNextToken();
+        if (!this.currentToken.equals("(")) {
+            throw new Exception("Error");
+        }
+        BigDecimal functionArgument = expression();
+        BigDecimal functionResults = evaluateFunction(currentFunction, functionArgument);
+
+        if (!this.currentToken.equals(")")) {
+            throw new Exception ("Error");
+        }
+
+        getNextToken();
+        
+        return functionResults;
+    }
    
 
     // Helper returns true if String can be parsed as number
@@ -291,11 +336,110 @@ class ArithmeticParser {
         if (calcToken.matches(numberPattern)) {
             isNumber = true;
         }//end if
+        else if (isMathConst(calcToken)) {
+            isNumber = true;
+        }
         else {
             isNumber = false;
         }//end else
         return isNumber;
     }//end isNumber()
+
+    private boolean isMathConst(String calcToken) {
+        String eulerPattern = "\uD835\uDC52";
+        String piPattern = "\u03C0";
+        boolean isMathConst = false;
+        if (calcToken.matches(eulerPattern)) {
+            isMathConst = true;
+        }
+        else if (calcToken.matches(piPattern)) {
+            isMathConst = true;
+        }
+        else {
+            isMathConst = false;
+        }
+
+        return isMathConst;
+    }
+    private BigDecimal getMathConst(String calcToken) {
+        String eulerPattern = "\uD835\uDC52";
+        String piPattern = "\u03C0";
+        BigDecimal mathConst = BigDecimal.ONE;
+        if (calcToken.matches(eulerPattern) ) {
+            mathConst = new BigDecimal(MyMath.EULERS_NUMBER);
+        }
+        else if(calcToken.matches(piPattern)) {
+            mathConst = new BigDecimal(MyMath.PI);
+        }
+
+        return mathConst;
+    }
+
+    private boolean isFunction(String calcToken) {
+        boolean isFunction = false;
+        switch(calcToken) {
+            case "ln":
+                
+            case "log":
+                
+            case "sin":
+                
+            case "cos":
+
+            case "tan":
+
+            case "sinh":
+
+            case "cosh":
+
+            case "tanh":
+
+            case "factorial":
+                isFunction = true;
+                break;
+            default:
+                isFunction = false;
+                break;
+
+        }// end switch(calcToken)
+
+        return isFunction;
+    }
+
+    private BigDecimal evaluateFunction(String calcToken, BigDecimal functionArgument) throws Exception {
+        BigDecimal theResults = new BigDecimal(0);
+        switch(calcToken) {
+            case "ln":
+                theResults = MyMath.natLog(functionArgument);
+                break;
+            case "log":
+                BigDecimal logBase = functionArgument;
+                BigDecimal logValue = expression();
+                theResults = MyMath.log(logBase, logValue);
+                break;
+            case "sin":
+                break;
+            case "cos":
+                break;
+            case "tan":
+                break;
+            case "sinh":
+                break;
+            case "cosh":
+                break;
+            case "tanh":
+                break;
+            case "factorial":
+                //theResults = new BigDecimal(MyMath.factorial(functionArgument.doubleValue()));
+                theResults = MyMath.bigFactorial(functionArgument);
+                break;
+            default:
+                break;
+
+        }// end switch(calcToken)
+
+        return theResults;
+    }
 
     
 

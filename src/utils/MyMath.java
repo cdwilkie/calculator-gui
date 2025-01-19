@@ -1,6 +1,8 @@
-package src;
+package utils;
 import java.util.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * MyMath reimplements a portion of functionality
@@ -13,6 +15,7 @@ public class MyMath {
     static final double PI = 3.141592653589793;
     static final double RADIANS_IN_DEGREE = PI / 180; //One Radian
     static final double DEGREES_IN_RADIAN = 180 / PI; //One Degree
+    static final double EULERS_NUMBER = computeE().doubleValue();
 
     /**
      * toDegrees() takes a double value representing an angle
@@ -357,6 +360,92 @@ public class MyMath {
 
         return theResult;
     }
+
+    public static BigDecimal bigFactorial(BigDecimal inputNumber) {
+        BigDecimal theResult = new BigDecimal(1);
+        //BigDecimal currentNum = BigDecimal.ONE;
+        for (BigDecimal i = inputNumber; i.compareTo(BigDecimal.ZERO) > 0; i = i.subtract(BigDecimal.ONE)) {
+            theResult = theResult.multiply(i);
+        }
+
+        return theResult;
+    }
+
+    // sum from 0 to infinity 1/n!
+    public static BigDecimal computeE() {
+        BigDecimal currentE = BigDecimal.ZERO;
+        //BigDecimal newTerm = new BigDecimal(0);
+        for (int i = 0; i < 100; ++i) {
+            BigDecimal theQuotient = BigDecimal.ONE;
+            theQuotient = theQuotient.divide(bigFactorial(new BigDecimal(i)), 20, RoundingMode.HALF_UP);
+            currentE = currentE.add(theQuotient);
+        }
+
+        return currentE;
+    }
+
+    public static BigDecimal natLog(BigDecimal inputNumber) throws Exception {
+        MathContext mc = new MathContext(20, RoundingMode.HALF_UP);
+        if (inputNumber.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new Exception ("Error");
+        }
+        if (inputNumber.compareTo(BigDecimal.ONE) == 0) {
+            return BigDecimal.ZERO;
+        }
+        if (inputNumber.compareTo(new BigDecimal(MyMath.EULERS_NUMBER)) == 0) {
+            return BigDecimal.ONE;
+        }
+
+
+        BigDecimal z = inputNumber.subtract(BigDecimal.ONE).divide(inputNumber.add(BigDecimal.ONE), mc);
+        BigDecimal zSquared = z.multiply(z, mc);
+
+        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal term = z; // Start with z
+        int maxIterations = 5000;
+
+        for (int i = 1; i <= maxIterations; i++) {
+            BigDecimal divisor = BigDecimal.valueOf(2 * i - 1);
+            result = result.add(term.divide(divisor, mc));
+            term = term.multiply(zSquared, mc);
+
+            // Stop if the term is smaller than the desired precision
+            if (term.abs().compareTo(BigDecimal.ONE.scaleByPowerOfTen(-mc.getPrecision())) < 0) {
+                break;
+            }
+        }
+
+        return result.multiply(BigDecimal.valueOf(2), mc); // Multiply by 2
+    }//end natLog()
+
+    public static BigDecimal log(BigDecimal baseNum, BigDecimal valueNum) throws Exception {
+        
+        MathContext mc = new MathContext(20, RoundingMode.HALF_UP);
+
+        BigDecimal theResults;
+        if ((baseNum.compareTo(BigDecimal.ONE) == 0) ||
+            (baseNum.compareTo(BigDecimal.ZERO) < 0)) {
+                throw new Exception("Error");
+            }
+        if (valueNum.compareTo(BigDecimal.ZERO) < 0) {
+            throw new Exception("Error");
+        }
+
+        // Edge Cases
+        if (valueNum.compareTo(BigDecimal.ONE) == 0) {
+            theResults = BigDecimal.ZERO;
+        }
+        BigDecimal natLogValue = natLog(valueNum);
+        BigDecimal natLogBase = natLog(baseNum);
+        
+        
+        theResults = natLogValue.divide(natLogBase, mc);
+        return theResults;
+
+    }
+    
+
+    
 
     
 

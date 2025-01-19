@@ -1,8 +1,9 @@
-package src;
+package utils;
 import javax.swing.*;
-import java.awt.*;
 
 import gui.*;
+
+import java.awt.*;
 import java.text.*;
 
 public class CalcView {
