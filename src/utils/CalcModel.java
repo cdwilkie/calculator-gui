@@ -317,7 +317,12 @@ class ArithmeticParser {
             throw new Exception("Error");
         }
         BigDecimal functionArgument = expression();
-        BigDecimal functionResults = evaluateFunction(currentFunction, functionArgument);
+        BigDecimal secondaryArgument = null;
+        if (this.currentToken.equals(",")) {
+            //getNextToken();
+            secondaryArgument = expression();
+        }
+        BigDecimal functionResults = evaluateFunction(currentFunction, functionArgument, secondaryArgument);
 
         if (!this.currentToken.equals(")")) {
             throw new Exception ("Error");
@@ -406,7 +411,8 @@ class ArithmeticParser {
         return isFunction;
     }
 
-    private BigDecimal evaluateFunction(String calcToken, BigDecimal functionArgument) throws Exception {
+    private BigDecimal evaluateFunction(String calcToken,
+                 BigDecimal functionArgument, BigDecimal secondaryArgument) throws Exception {
         BigDecimal theResults = new BigDecimal(0);
         switch(calcToken) {
             case "ln":
@@ -414,7 +420,7 @@ class ArithmeticParser {
                 break;
             case "log":
                 BigDecimal logBase = functionArgument;
-                BigDecimal logValue = expression();
+                BigDecimal logValue = secondaryArgument;
                 theResults = MyMath.log(logBase, logValue);
                 break;
             case "sin":
