@@ -1,6 +1,7 @@
 package utils;
 import java.util.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
@@ -383,41 +384,68 @@ public class MyMath {
         return currentE;
     }
 
-    public static BigDecimal natLog(BigDecimal inputNumber) {
-        BigDecimal theResults = BigDecimal.ZERO;
-        BigDecimal firstTerm = BigDecimal.ONE;
-        BigDecimal secTerm = BigDecimal.ONE;
-        // form = firstTerm - ( 1 - (input / e^firstTerm))
-        do {
-        firstTerm = secTerm;
-        BigDecimal theQuotient = new BigDecimal(MyMath.EULERS_NUMBER);
-        theQuotient = theQuotient.pow(firstTerm.intValue());
-        theQuotient = inputNumber.divide(theQuotient,20,RoundingMode.HALF_UP);
-        theQuotient = BigDecimal.ONE.subtract(theQuotient);
+    public static BigDecimal natLog(BigDecimal inputNumber) throws Exception {
+        MathContext mc = new MathContext(20, RoundingMode.HALF_UP);
+        if (inputNumber.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new Exception ("Error");
+        }
+        if (inputNumber.compareTo(BigDecimal.ONE) == 0) {
+            return BigDecimal.ZERO;
+        }
+        if (inputNumber.compareTo(new BigDecimal(MyMath.EULERS_NUMBER)) == 0) {
+            return BigDecimal.ONE;
+        }
+
+
+        BigDecimal z = inputNumber.subtract(BigDecimal.ONE).divide(inputNumber.add(BigDecimal.ONE), mc);
+        BigDecimal zSquared = z.multiply(z, mc);
+
+        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal term = z; // Start with z
+        int maxIterations = 5000;
+
+        for (int i = 1; i <= maxIterations; i++) {
+            BigDecimal divisor = BigDecimal.valueOf(2 * i - 1);
+            result = result.add(term.divide(divisor, mc));
+            term = term.multiply(zSquared, mc);
+
+            // Stop if the term is smaller than the desired precision
+            if (term.abs().compareTo(BigDecimal.ONE.scaleByPowerOfTen(-mc.getPrecision())) < 0) {
+                break;
+            }
+        }
+
+        return result.multiply(BigDecimal.valueOf(2), mc); // Multiply by 2
+    }//end natLog()
+
+    public static BigDecimal log(BigDecimal baseNum, BigDecimal valueNum) throws Exception {
         
-        secTerm = firstTerm.subtract(theQuotient);
+        MathContext mc = new MathContext(20, RoundingMode.HALF_UP);
 
-        } while(isClose(firstTerm, secTerm));
+        BigDecimal theResults;
+        if ((baseNum.compareTo(BigDecimal.ONE) == 0) ||
+            (baseNum.compareTo(BigDecimal.ZERO) < 0)) {
+                throw new Exception("Error");
+            }
+        if (valueNum.compareTo(BigDecimal.ZERO) < 0) {
+            throw new Exception("Error");
+        }
 
+        // Edge Cases
+        if (valueNum.compareTo(BigDecimal.ONE) == 0) {
+            theResults = BigDecimal.ZERO;
+        }
+        BigDecimal natLogValue = natLog(valueNum);
+        BigDecimal natLogBase = natLog(baseNum);
+        
+        
+        theResults = natLogValue.divide(natLogBase, mc);
         return theResults;
+
     }
+    
 
-    private static boolean isClose(BigDecimal firstTerm, BigDecimal secondTerm) {
-        BigDecimal faultTol = new BigDecimal("1e-10");
-        boolean isClose = false;
-        BigDecimal theDiff = secondTerm.subtract(firstTerm);
-        theDiff = theDiff.abs();
-
-        if (theDiff.compareTo(faultTol) > 0) {
-            isClose = false;
-        }
-        else {
-            isClose = true;
-        }
-
-
-        return isClose;
-    }
+    
 
     
 
