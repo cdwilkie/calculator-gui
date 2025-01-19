@@ -163,8 +163,8 @@ public class CalcController {
                     case "exponent":
                         currentInput += " ^ ";
                         break;
-                    case "squareroot":
-                        currentInput += "\u221A";
+                    case "log":
+                        currentInput += "log ( ";
                         break;
                     case "eulersNum":
                         currentInput += "\uD835\uDC52";
