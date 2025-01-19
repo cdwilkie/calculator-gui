@@ -7,7 +7,7 @@ import java.awt.*;
 public class OperationsPanel {
     //-------------------- Vars
     private static final String[] buttonNames = {
-        "!", "ln", "exponent", "squareroot",
+        "!", "ln", "exponent", "log",
         "eulersNum", "pi", "mem"};
 
     private JPanel opPanel;
@@ -73,9 +73,9 @@ public class OperationsPanel {
                     newButton.setText("<html>x<sup>y</sup></html>");
                     buttonMap.put(buttonName, newButton);
                     break;
-                case "squareroot":
+                case "log":
                     newButton = buildButton(buttonName);
-                    newButton.setText("\u221A");
+                    newButton.setText("log");
                     buttonMap.put(buttonName, newButton);
                     break;
                 case "eulersNum":
