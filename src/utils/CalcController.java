@@ -175,7 +175,7 @@ public class CalcController {
                     case ",":
                         currentInput += " , ";
                         break;
-                    case "mem":
+                    case "ans":
                         currentInput += calcModel.getMemory();
                 }//end switch(buttonName)
             calcView.setInput(currentInput);
